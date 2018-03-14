@@ -54,6 +54,15 @@ class EzMatrix(object):
             time.sleep(sleep)
             self.matrix.Clear()
 
+    def test_rows(self):
+        canvas = Canvas()
+        for y in range(len(canvas)):
+            rand_color = Color(random.randint(0, 255), random.randint(0, 255), random.randint(0,255))
+            for x in range(len(canvas[y])):
+                canvas[y][x] = rand_color
+
+        return canvas
+
     def rotate_square(self, sleep, color):
         sleep = float(sleep) / float(self.matrix.height)
         
@@ -165,7 +174,9 @@ matrix = EzMatrix()
 
 cvs = Canvas()
 while True:
-    matrix.test_line_canvas(0.5, Color(255, 0, 0))
+    #matrix.test_line_canvas(0.5, Color(255, 0, 0))
+    cvs = matrix.test_rows()
+    matrix.draw_canvas(cvs)
     #cvs = matrix.draw_line_canvas(Point(0,0), Point(31, 31), Color(0, 255, 0), Canvas())
     #matrix.draw_canvas(cvs)
     #matrix.test_line(0.5, Color(255, 0, 0))
