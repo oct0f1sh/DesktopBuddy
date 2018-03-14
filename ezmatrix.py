@@ -25,12 +25,32 @@ class EzMatrix(object):
         
         for point in points:
             self.matrix.SetPixel(int(point.x), int(point.y), color.r, color.g, color.b)
+
+    def draw_line_canvas(self, start, end, color, canvas):
+        points = Geometry.get_points_in_line(start, end)
+
+        for point in points:
+            x = int(point.x)
+            y = int(point.y)
+
+            canvas[y][x] = color
+
+        return canvas
             
     def test_line(self, sleep, color):
         i = 0
         for pixel in range(self.matrix.width):
             #print('({}, {}) ({}, {})'.format(0, i, 32, 32 - i))
             self.draw_line(Point(0, i), Point(33, 32 - i), color)
+            time.sleep(sleep)
+            i += 1
+            self.matrix.Clear()
+
+    def test_line_canvas(self, sleep, color):
+        i = 0
+        for pixel in range(self.matrix.width):
+            canvas = self.draw_line_canvas(Point(0, i), Point(33, 32 - i), color)
+            self.draw_canvas(canvas)
             time.sleep(sleep)
             i += 1
             self.matrix.Clear()
@@ -146,4 +166,4 @@ matrix = EzMatrix()
 
 cvs = Canvas()
 while True:
-    matrix.draw_canvas(cvs)
+    matrix.test_line_canvas
