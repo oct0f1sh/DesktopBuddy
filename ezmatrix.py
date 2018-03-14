@@ -116,11 +116,24 @@ class Color():
         self.r = r
         self.g = g
         self.b = b
-        
-        
-matrix = EzMatrix()
 
-while True:
-    color = Color(random.randint(0, 256), random.randint(0, 256), random.randint(0, 256))
-    #matrix.rotate_square(0.5, color)
-    matrix.nice(0.01, color)
+class Canvas(list):
+    def __init__(self, width=32, height=32):
+        self = []
+        for row in range(height):
+            color_row = []
+            for col in range(width):
+                color_row.append(Color(0,0,0))
+            self.append(color_row)
+
+    def prnt(self):
+        for row in self:
+            print(row)
+        
+        
+# matrix = EzMatrix()
+
+# while True:
+#     color = Color(random.randint(0, 256), random.randint(0, 256), random.randint(0, 256))
+#     #matrix.rotate_square(0.5, color)
+#     matrix.nice(0.01, color)
