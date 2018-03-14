@@ -116,20 +116,26 @@ class Color():
         self.r = r
         self.g = g
         self.b = b
+    
+    def get_color(self):
+        return('(R:{} G:{} B:{})'.format(self.r, self.g, self.b))
 
 class Canvas(list):
     def __init__(self, width=32, height=32):
-        self = []
+        lst = []
         for row in range(height):
             color_row = []
             for col in range(width):
                 color_row.append(Color(0,0,0))
             self.append(color_row)
-
+        self = lst
+        
     def prnt(self):
         for row in self:
-            print(row)
-        
+            row_str = ''
+            for color in row:
+                row_str = row_str + ' ' + color.get_color()
+            print(row_str)
         
 # matrix = EzMatrix()
 
@@ -137,3 +143,6 @@ class Canvas(list):
 #     color = Color(random.randint(0, 256), random.randint(0, 256), random.randint(0, 256))
 #     #matrix.rotate_square(0.5, color)
 #     matrix.nice(0.01, color)
+
+cvs = Canvas()
+cvs.prnt()
