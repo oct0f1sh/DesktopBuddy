@@ -14,13 +14,19 @@ class EzMatrix(object):
         
         self.matrix = RGBMatrix(options = options)
         
+    def draw_canvas(self, canvas):
+        for y in range(len(canvas)):
+            for x in range(len(canvas[y])):
+                pixel = canvas[y][x]
+                self.matrix.SetPixel(x, y, pixel.r, pixel.g, pixel.b)
+        
     def draw_line(self, start, end, color):
         points = Geometry.get_points_in_line(start, end)
         
         for point in points:
             self.matrix.SetPixel(int(point.x), int(point.y), color.r, color.g, color.b)
             
-    def nice(self, sleep, color):
+    def test_line(self, sleep, color):
         i = 0
         for pixel in range(self.matrix.width):
             #print('({}, {}) ({}, {})'.format(0, i, 32, 32 - i))
@@ -117,7 +123,7 @@ class Color():
         self.g = g
         self.b = b
     
-    def get_color(self):
+    def __repr__(self):
         return('(R:{} G:{} B:{})'.format(self.r, self.g, self.b))
 
 class Canvas(list):
@@ -126,18 +132,12 @@ class Canvas(list):
         for row in range(height):
             color_row = []
             for col in range(width):
-                color_row.append(Color(0,0,0))
+                color_row.append(Color(0,random.randint(0, 255),0))
             self.append(color_row)
         self = lst
         
-    def prnt(self):
-        for row in self:
-            row_str = ''
-            for color in row:
-                row_str = row_str + ' ' + color.get_color()
-            print(row_str)
         
-# matrix = EzMatrix()
+matrix = EzMatrix()
 
 # while True:
 #     color = Color(random.randint(0, 256), random.randint(0, 256), random.randint(0, 256))
@@ -145,4 +145,5 @@ class Canvas(list):
 #     matrix.nice(0.01, color)
 
 cvs = Canvas()
-cvs.prnt()
+while True:
+    matrix.draw_canvas(cvs)
