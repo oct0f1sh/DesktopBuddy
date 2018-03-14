@@ -20,14 +20,14 @@ class EzMatrix(object):
         for point in points:
             self.matrix.SetPixel(int(point.x), int(point.y), color.r, color.g, color.b)
             
-#    def nice(self, sleep):
-#        i = 0
-#        for pixel in range(self.matrix.width):
-#            #print('({}, {}) ({}, {})'.format(0, i, 32, 32 - i))
-#            self.draw_line(Point(0, i), Point(32, 32 - i))
-#            time.sleep(sleep)
-#            i += 1
-#            self.matrix.Clear()
+    def nice(self, sleep, color):
+        i = 0
+        for pixel in range(self.matrix.width):
+            #print('({}, {}) ({}, {})'.format(0, i, 32, 32 - i))
+            self.draw_line(Point(0, i), Point(33, 32 - i), color)
+            time.sleep(sleep)
+            i += 1
+            self.matrix.Clear()
 
     def rotate_square(self, sleep, color):
         sleep = float(sleep) / float(self.matrix.height)
@@ -122,4 +122,5 @@ matrix = EzMatrix()
 
 while True:
     color = Color(random.randint(0, 256), random.randint(0, 256), random.randint(0, 256))
-    matrix.rotate_square(0.5, color)
+    #matrix.rotate_square(0.5, color)
+    matrix.nice(0.01, color)
