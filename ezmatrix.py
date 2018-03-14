@@ -18,7 +18,7 @@ class EzMatrix(object):
         for y in range(len(canvas)):
             for x in range(len(canvas[y])):
                 pixel = canvas[y][x]
-                self.matrix.SetPixel(x + 1, y + 1, pixel.r, pixel.g, pixel.b)
+                self.matrix.SetPixel(x, y, pixel.r, pixel.g, pixel.b)
         
     def draw_line(self, start, end, color):
         points = Geometry.get_points_in_line(start, end)
@@ -33,7 +33,10 @@ class EzMatrix(object):
             x = int(point.x)
             y = int(point.y)
             
-            canvas[y][x - 1] = color
+            if y == 31:
+                print(x)
+            
+            canvas[y][x] = color
 
         return canvas
             
@@ -47,19 +50,25 @@ class EzMatrix(object):
             self.matrix.Clear()
 
     def test_line_canvas(self, sleep, color):
-        for pixel in range(self.matrix.width + 1):
-            canvas = self.draw_line_canvas(Point(0, pixel), Point(32, 32 - pixel), color, Canvas())
+        for pixel in range(self.matrix.width):
+            canvas = self.draw_line_canvas(Point(0, pixel), Point(32, 31 - pixel), color, Canvas())
             self.draw_canvas(canvas)
-            print('({}, {}) ({}, {})'.format(0, pixel, 32, 32 - pixel))
+            #print('({}, {}) ({}, {})'.format(0, pixel, 32, 32 - pixel))
             time.sleep(sleep)
             self.matrix.Clear()
 
     def test_rows(self):
         canvas = Canvas()
         for y in range(len(canvas)):
-            rand_color = Color(random.randint(0, 255), random.randint(0, 255), random.randint(0,255))
+            if y % 3 == 0:
+                color = Color(255, 0, 0)
+            elif y % 3 == 1:
+                color = Color(0, 255, 0)
+            else:
+                color = Color(0, 0, 255)
+    
             for x in range(len(canvas[y])):
-                canvas[y][x] = rand_color
+                canvas[y][x] = color
 
         return canvas
 
@@ -134,7 +143,7 @@ class Geometry():
     def get_points_in_line(start, end):
         num_points = Geometry.distance(start, end)
         points = []
-        for i in range(int(num_points)):
+        for i in range(int(num_points) + 1):
             t = float(i) / float(num_points)
             points.append(Geometry.lirp_points(start, end, t))
         return points
@@ -174,9 +183,12 @@ matrix = EzMatrix()
 
 cvs = Canvas()
 while True:
-    #matrix.test_line_canvas(0.5, Color(255, 0, 0))
-    cvs = matrix.test_rows()
+    top_l = Point(0, 0)
+    top_r = Point(32, 0)
+    bot_l = Point(0, 32)
+    bot_r = Point(32, 32)
+    
+    cvs = matrix.draw_line_canvas(top_l, bot_r, Color(255,0,0), Canvas())
+    cvs = matrix.draw_line_canvas(top_r, bot_l, Color(0,255,0), cvs)
+    
     matrix.draw_canvas(cvs)
-    #cvs = matrix.draw_line_canvas(Point(0,0), Point(31, 31), Color(0, 255, 0), Canvas())
-    #matrix.draw_canvas(cvs)
-    #matrix.test_line(0.5, Color(255, 0, 0))
