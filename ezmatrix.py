@@ -77,7 +77,7 @@ class EzMatrix(object):
         
         anim = []
         
-        for _ in range(32):
+        for _ in range(self.matrix.height - 1):
             cvs = self.draw_line_canvas(point_left, point_bottom, color, cvs)
             cvs = self.draw_line_canvas(point_bottom, point_right, color, cvs)
             cvs = self.draw_line_canvas(point_right, point_top, color, cvs)
@@ -122,19 +122,6 @@ class EzMatrix(object):
         point_right = Point(point_bottom.x + size, point_bottom.y)
         point_top = Point(point_right.x, point_right.y - size)
         
-##        for i in range(size + 1):
-##            anim[i] = self.draw_line_canvas(point_left, point_bottom, color, anim[i])
-##            anim[i] = self.draw_line_canvas(point_bottom, point_right, color, anim[i])
-##            anim[i] = self.draw_line_canvas(point_right, point_top, color, anim[i])
-##            anim[i] = self.draw_line_canvas(point_top, point_left, color, anim[i])
-##            
-##            point_left.y += 1
-##            point_bottom.x += 1
-##            point_right.y -= 1
-##            point_top.x -= 1
-##            
-##        return anim
-        
         for i, canvas in enumerate(anim):
             wait = float(1/float(size)) * float(len(anim))
             
@@ -142,12 +129,13 @@ class EzMatrix(object):
                 point_left.y += 1
                 point_bottom.x += 1
                 point_right.y -= 1
-                point_top.x -= 1 # next frame
+                point_top.x -= 1
             #else:
             anim[i] = self.draw_line_canvas(point_left, point_bottom, color, anim[i])
             anim[i] = self.draw_line_canvas(point_bottom, point_right, color, anim[i])
             anim[i] = self.draw_line_canvas(point_right, point_top, color, anim[i])
-            anim[i] = self.draw_line_canvas(point_top, point_left, color, anim[i]) # last frame
+            anim[i] = self.draw_line_canvas(point_top, point_left, color, anim[i])
+            
         return anim
         
 class Geometry():
