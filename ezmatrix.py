@@ -26,12 +26,6 @@ class EzMatrix(object):
             self.draw_canvas(canvas)
             time.sleep(sleep)
             self.matrix.Clear()
-        
-    def draw_line(self, start, end, color):
-        points = Geometry.get_points_in_line(start, end)
-        
-        for point in points:
-            self.matrix.SetPixel(int(point.x), int(point.y), color.r, color.g, color.b)
 
     def draw_line_canvas(self, start, end, color, canvas):
         points = Geometry.get_points_in_line(start, end)
@@ -45,28 +39,6 @@ class EzMatrix(object):
             canvas[y][x] = color
         
         return canvas
-
-    def rotate_square(self, sleep, color):
-        sleep = float(sleep) / float(self.matrix.height)
-        
-        point_left = Point(0, 0)
-        point_bottom = Point(0, 31)
-        point_right = Point(31, 31)
-        point_top = Point(31, 0)
-        
-        for _ in range(32):
-            point_left.y += 1
-            point_bottom.x += 1
-            point_right.y -= 1
-            point_top.x -= 1
-            
-            self.draw_line(point_left, point_bottom, color)
-            self.draw_line(point_bottom, point_right, color)
-            self.draw_line(point_right, point_top, color)
-            self.draw_line(point_top, point_left, color)
-            
-            time.sleep(sleep)
-            self.matrix.Clear()
             
     def rotate_square_canvas(self, color, canvas):
         cvs = canvas
@@ -93,28 +65,6 @@ class EzMatrix(object):
             cvs = Canvas()
             
         return anim
-            
-    def rotate_subsquare(self, point, size, sleep, color):
-        sleep = float(sleep) / float(self.matrix.height)
-        
-        point_left = point
-        point_bottom = Point(point_left.x, point_left.y + size)
-        point_right = Point(point_bottom.x + size, point_bottom.y)
-        point_top = Point(point_right.x, point_right.y - size)
-        
-        for _ in range(size):
-            point_left.y += 1
-            point_bottom.x += 1
-            point_right.y -= 1
-            point_top.x -= 1
-            
-            self.draw_line(point_left, point_bottom, color)
-            self.draw_line(point_bottom, point_right, color)
-            self.draw_line(point_right, point_top, color)
-            self.draw_line(point_top, point_left, color)
-            
-            time.sleep(sleep)
-            self.matrix.Clear()
         
     def rotate_subsquare_on_anim(self, point, size, color, anim):
         point_left = point
