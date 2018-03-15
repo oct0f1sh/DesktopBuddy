@@ -19,6 +19,13 @@ class EzMatrix(object):
             for x in range(len(canvas[y])):
                 pixel = canvas[y][x]
                 self.matrix.SetPixel(x, y, pixel.r, pixel.g, pixel.b)
+                
+    def draw_anim(self, anim, sleep):
+        sleep = float(sleep) / float(self.matrix.height)
+        for canvas in anim:
+            self.draw_canvas(canvas)
+            time.sleep(sleep)
+            self.matrix.Clear()
         
     def draw_line(self, start, end, color):
         points = Geometry.get_points_in_line(start, end)
@@ -33,40 +40,10 @@ class EzMatrix(object):
             x = int(round(point.x, 0))
             y = int(round(point.y, 0))
             
+            #print('({}, {})'.format(x, y))
+            
             canvas[y][x] = color
         
-        return canvas
-            
-    def test_line(self, sleep, color):
-        i = 0
-        for pixel in range(self.matrix.width):
-            #print('({}, {}) ({}, {})'.format(0, i, 32, 32 - i))
-            self.draw_line(Point(0, i), Point(33, 32 - i), color)
-            time.sleep(sleep)
-            i += 1
-            self.matrix.Clear()
-
-    def test_line_canvas(self, sleep, color):
-        for pixel in range(self.matrix.width):
-            canvas = self.draw_line_canvas(Point(0, pixel), Point(32, 31 - pixel), color, Canvas())
-            self.draw_canvas(canvas)
-            #print('({}, {}) ({}, {})'.format(0, pixel, 32, 32 - pixel))
-            time.sleep(sleep)
-            self.matrix.Clear()
-
-    def test_rows(self):
-        canvas = Canvas()
-        for y in range(len(canvas)):
-            if y % 3 == 0:
-                color = Color(255, 0, 0)
-            elif y % 3 == 1:
-                color = Color(0, 255, 0)
-            else:
-                color = Color(0, 0, 255)
-    
-            for x in range(len(canvas[y])):
-                canvas[y][x] = color
-
         return canvas
 
     def rotate_square(self, sleep, color):
@@ -91,6 +68,32 @@ class EzMatrix(object):
             time.sleep(sleep)
             self.matrix.Clear()
             
+    def rotate_square_canvas(self, color, canvas):
+        cvs = canvas
+        point_left = Point(0, 0)
+        point_bottom = Point(0, 31)
+        point_right = Point(31, 31)
+        point_top = Point(31, 0)
+        
+        anim = []
+        
+        for _ in range(32):
+            cvs = self.draw_line_canvas(point_left, point_bottom, color, cvs)
+            cvs = self.draw_line_canvas(point_bottom, point_right, color, cvs)
+            cvs = self.draw_line_canvas(point_right, point_top, color, cvs)
+            cvs = self.draw_line_canvas(point_top, point_left, color, cvs)
+            
+            point_left.y += 1
+            point_bottom.x += 1
+            point_right.y -= 1
+            point_top.x -= 1
+        
+            anim.append(cvs)
+            
+            cvs = Canvas()
+            
+        return anim
+            
     def rotate_subsquare(self, point, size, sleep, color):
         sleep = float(sleep) / float(self.matrix.height)
         
@@ -113,7 +116,39 @@ class EzMatrix(object):
             time.sleep(sleep)
             self.matrix.Clear()
         
+    def rotate_subsquare_on_anim(self, point, size, color, anim):
+        point_left = point
+        point_bottom = Point(point_left.x, point_left.y + size)
+        point_right = Point(point_bottom.x + size, point_bottom.y)
+        point_top = Point(point_right.x, point_right.y - size)
         
+##        for i in range(size + 1):
+##            anim[i] = self.draw_line_canvas(point_left, point_bottom, color, anim[i])
+##            anim[i] = self.draw_line_canvas(point_bottom, point_right, color, anim[i])
+##            anim[i] = self.draw_line_canvas(point_right, point_top, color, anim[i])
+##            anim[i] = self.draw_line_canvas(point_top, point_left, color, anim[i])
+##            
+##            point_left.y += 1
+##            point_bottom.x += 1
+##            point_right.y -= 1
+##            point_top.x -= 1
+##            
+##        return anim
+        
+        for i, canvas in enumerate(anim):
+            wait = float(1/float(size)) * float(len(anim))
+            
+            if i != 0 and i % wait < 1:
+                point_left.y += 1
+                point_bottom.x += 1
+                point_right.y -= 1
+                point_top.x -= 1 # next frame
+            #else:
+            anim[i] = self.draw_line_canvas(point_left, point_bottom, color, anim[i])
+            anim[i] = self.draw_line_canvas(point_bottom, point_right, color, anim[i])
+            anim[i] = self.draw_line_canvas(point_right, point_top, color, anim[i])
+            anim[i] = self.draw_line_canvas(point_top, point_left, color, anim[i]) # last frame
+        return anim
         
 class Geometry():
     @staticmethod
@@ -174,30 +209,3 @@ class Canvas(list):
                 color_row.append(Color(0,0,0))
             self.append(color_row)
         self = lst
-        
-        
-matrix = EzMatrix()
-
-# while True:
-#     color = Color(random.randint(0, 256), random.randint(0, 256), random.randint(0, 256))
-#     #matrix.rotate_square(0.5, color)
-#     matrix.nice(0.01, color)
-
-cvs = Canvas()
-while True:
-    top_l = Point(0, 0)
-    top_r = Point(31, 0)
-    bot_l = Point(0, 31)
-    bot_r = Point(31, 31)
-    
-##    matrix.matrix.SetPixel(31, 0, 0, 0, 255)
-##    matrix.matrix.SetPixel(0, 31, 0, 0, 255)
-##    matrix.matrix.SetPixel(31, 31, 0, 0, 255)
-##    matrix.matrix.SetPixel(0, 0, 0, 0, 255)
-    
-    #cvs = matrix.draw_line_canvas(Point(1, 1), Point(5, 5), Color(255, 0, 0), Canvas())
-    
-    cvs = matrix.draw_line_canvas(top_l, bot_r, Color(255,0,0), Canvas())
-    cvs = matrix.draw_line_canvas(top_r, bot_l, Color(0,255,0), cvs)
-    
-    matrix.draw_canvas(cvs)
