@@ -19,6 +19,14 @@ class EzMatrix(object):
             for x in range(len(canvas[y])):
                 pixel = canvas[y][x]
                 self.matrix.SetPixel(x, y, pixel.r, pixel.g, pixel.b)
+
+    def add_subcavas(self, canvas, subcanvas):
+        cvs = canvas
+        for y in subcanvas:
+            for x in y:
+                cvs[y][x] = subcanvas[y][x]
+
+        return cvs
                 
     def run_anim(self, anim, sleep):
         sleep = float(sleep) / float(self.matrix.height)
@@ -89,6 +97,8 @@ class EzMatrix(object):
         return anim
     
     def draw_numer(self, number, point, color):
+        cvs = Canvas()
+
         
         
 class Geometry():
@@ -150,3 +160,24 @@ class Canvas(list):
                 color_row.append(Color(0,0,0))
             self.append(color_row)
         self = lst
+
+class PixNum():
+    @staticmethod
+    def canvas_for_num(self, number, color):
+        o = Color(0,0,0)
+        c = color
+        # numbers have a sub-canvas size of 3x5 pixels
+        cvs = Canvas(3, 5)
+        if number == 1:
+            cvs = [[o, c, o],
+                   [c, c, o],
+                   [o, c, o],
+                   [o, c, o],
+                   [o, c, o]]
+        if number == 2:
+            cvs = [[c, c, c],
+                   [o, o, c],
+                   [c, c, c],
+                   [c, o, o],
+                   [c, c, c]]
+        return cvs
