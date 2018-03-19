@@ -20,7 +20,7 @@ class EzMatrix(object):
                 pixel = canvas[y][x]
                 self.matrix.SetPixel(x, y, pixel.r, pixel.g, pixel.b)
                 
-    def draw_anim(self, anim, sleep):
+    def run_anim(self, anim, sleep):
         sleep = float(sleep) / float(self.matrix.height)
         for canvas in anim:
             self.draw_canvas(canvas)
@@ -87,6 +87,9 @@ class EzMatrix(object):
             anim[i] = self.draw_line_canvas(point_top, point_left, color, anim[i])
             
         return anim
+    
+    def draw_numer(self, number, point, color):
+        
         
 class Geometry():
     @staticmethod
