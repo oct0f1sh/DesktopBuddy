@@ -160,24 +160,3 @@ class Canvas(list):
                 color_row.append(Color(0,0,0))
             self.append(color_row)
         self = lst
-
-class PixNum():
-    @staticmethod
-    def canvas_for_num(number, color):
-        o = Color(0,0,0)
-        c = color
-        # numbers have a sub-canvas size of 3x5 pixels
-        cvs = Canvas(3, 5)
-        if number == 1:
-            cvs = [[o, c, o],
-                   [c, c, o],
-                   [o, c, o],
-                   [o, c, o],
-                   [o, c, o]]
-        if number == 2:
-            cvs = [[c, c, c],
-                   [o, o, c],
-                   [c, c, c],
-                   [c, o, o],
-                   [c, c, c]]
-        return cvs
