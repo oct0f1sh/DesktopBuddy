@@ -22,8 +22,8 @@ class EzMatrix(object):
 
     def add_subcavas(self, canvas, subcanvas):
         cvs = canvas
-        for y in subcanvas:
-            for x in y:
+        for y in range(len(subcanvas)):
+            for x in range(len(subcanvas[y])):
                 cvs[y][x] = subcanvas[y][x]
 
         return cvs
@@ -163,7 +163,7 @@ class Canvas(list):
 
 class PixNum():
     @staticmethod
-    def canvas_for_num(self, number, color):
+    def canvas_for_num(number, color):
         o = Color(0,0,0)
         c = color
         # numbers have a sub-canvas size of 3x5 pixels
