@@ -20,13 +20,7 @@ class EzMatrix(object):
                 pixel = canvas[y][x]
                 self.matrix.SetPixel(x, y, pixel.r, pixel.g, pixel.b)
 
-    def add_subcavas(self, canvas, subcanvas):
-        cvs = canvas
-        for y in range(len(subcanvas)):
-            for x in range(len(subcanvas[y])):
-                cvs[y][x] = subcanvas[y][x]
-
-        return cvs
+    
                 
     def run_anim(self, anim, sleep):
         sleep = float(sleep) / float(self.matrix.height)
@@ -160,3 +154,13 @@ class Canvas(list):
                 color_row.append(Color(0,0,0))
             self.append(color_row)
         self = lst
+    
+    def add_subcanvas(self, subcanvas, translation=Point(0, 0)):
+        # adding a translation of Point(3, 3) would move the
+        # subcanvas right 3 and down 3
+        # translation: must be a Point
+        for y in range(len(subcanvas)):
+            for x in range(len(subcanvas[y])):
+                self[y + translation.y][x + translation.x] = subcanvas[y][x]
+                
+        return self
