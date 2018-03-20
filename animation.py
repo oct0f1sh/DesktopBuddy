@@ -76,6 +76,12 @@ def clock():
 def clock_big():
     matrix = EzMatrix()
     
+    green = Color(0, 0, 255)
+    red = Color(255, 0, 0)
+    blue = Color(0, 255, 0)
+    gray = Color(128, 128, 128)
+    white = Color(255, 255, 255)
+    
     while True:
         time = datetime.now(pytz.timezone('US/Pacific'))
         time_hr = time.strftime('%H')
@@ -83,6 +89,15 @@ def clock_big():
         
         if int(time_hr) > 12:
             time_hr = '0' + str(int(time_hr) - 12)
+            
+        month_pos1 = NumCanvas.small_num(0, white)
+        month_pos2 = NumCanvas.small_num(3, white)
+        
+        day_pos1 = NumCanvas.small_num(2, gray)
+        day_pos2 = NumCanvas.small_num(0, gray)
+        
+        year_pos1 = NumCanvas.small_num(1, white)
+        year_pos2 = NumCanvas.small_num(8, white)
     
         hr_pos1 = NumCanvas.big_num(int(time_hr[0]), Color(255, 0, 0))
         hr_pos2 = NumCanvas.big_num(int(time_hr[1]), Color(255, 0, 0))
@@ -91,13 +106,24 @@ def clock_big():
     
         mn_pos1 = NumCanvas.big_num(int(time_mn[0]), Color(0, 0, 255))
         mn_pos2 = NumCanvas.big_num(int(time_mn[1]), Color(0, 0, 255))
+        
+        date_cvs = Canvas(25, 5)
+        date_cvs.add_subcanvas(month_pos1).add_subcanvas(month_pos2, Point(4, 0))
+        date_cvs.add_subcanvas(day_pos1, Point(9, 0)).add_subcanvas(day_pos2, Point(13, 0))
+        date_cvs.add_subcanvas(year_pos1, Point(18, 0)).add_subcanvas(year_pos2, Point(22, 0))
     
         time_cvs = Canvas(25, 7)
-        time_cvs.add_subcanvas(hr_pos1).add_subcanvas(hr_pos2, Point(6, 0)).add_subcanvas(colon, Point(12, 0)).add_subcanvas(mn_pos1, Point(14, 0)).add_subcanvas(mn_pos2, Point(20, 0))
+        time_cvs.add_subcanvas(hr_pos1).add_subcanvas(hr_pos2, Point(6, 0))
+        time_cvs.add_subcanvas(colon, Point(12, 0))
+        time_cvs.add_subcanvas(mn_pos1, Point(14, 0)).add_subcanvas(mn_pos2, Point(20, 0))
         
-        cvs = Canvas().add_subcanvas(time_cvs, Point(3, 12))
+        cvs = Canvas(25, 13)
+        cvs.add_subcanvas(date_cvs)
+        cvs.add_subcanvas(time_cvs, Point(0, 6))
+        
+        canvas = Canvas().add_subcanvas(cvs, Point(3, 9))
     
-        matrix.draw_canvas(cvs)
+        matrix.draw_canvas(canvas)
         
         
 def draw_rect():

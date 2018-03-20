@@ -12,7 +12,7 @@ class NumCanvas():
                    [c, c, o], # XX
                    [o, c, o], #  X 
                    [o, c, o], #  X 
-                   [o, c, o]] #  X 
+                   [c, c, c]] # XXX
         if number == 2:
             cvs = [[c, c, c], # XXX
                    [o, o, c], #   X
