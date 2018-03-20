@@ -87,17 +87,21 @@ def clock_big():
         time_hr = time.strftime('%H')
         time_mn = time.strftime('%M')
         
+        date_mon = time.strftime('%m')
+        date_day = time.strftime('%d')
+        date_year = time.strftime('%y')
+        
         if int(time_hr) > 12:
             time_hr = '0' + str(int(time_hr) - 12)
             
-        month_pos1 = NumCanvas.small_num(0, white)
-        month_pos2 = NumCanvas.small_num(3, white)
+        month_pos1 = NumCanvas.small_num(int(date_mon[0]), white)
+        month_pos2 = NumCanvas.small_num(int(date_mon[1]), white)
         
-        day_pos1 = NumCanvas.small_num(2, gray)
-        day_pos2 = NumCanvas.small_num(0, gray)
+        day_pos1 = NumCanvas.small_num(int(date_day[0]), gray)
+        day_pos2 = NumCanvas.small_num(int(date_day[1]), gray)
         
-        year_pos1 = NumCanvas.small_num(1, white)
-        year_pos2 = NumCanvas.small_num(8, white)
+        year_pos1 = NumCanvas.small_num(int(date_year[0]), white)
+        year_pos2 = NumCanvas.small_num(int(date_year[1]), white)
     
         hr_pos1 = NumCanvas.big_num(int(time_hr[0]), Color(255, 0, 0))
         hr_pos2 = NumCanvas.big_num(int(time_hr[1]), Color(255, 0, 0))
