@@ -1,8 +1,8 @@
 from ezmatrix import *
 
-class PixNum():
+class NumCanvas():
     @staticmethod
-    def canvas_for_num(number, color):
+    def small_num(number, color):
         o = Color(0,0,0)
         c = color
         # numbers have a sub-canvas size of 3x5 pixels
@@ -68,3 +68,7 @@ class PixNum():
                    [c, o, c], # X X
                    [c, c, c]] # XXX
         return cvs
+
+    @staticmethod
+    def big_num(number, color):
+        

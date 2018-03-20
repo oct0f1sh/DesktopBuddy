@@ -25,7 +25,7 @@ def run_anim():
 ##def disp_num():
 ##    matrix = EzMatrix()
 ##    
-##    cvs = PixNum.canvas_for_num(2, Color(0, 255, 0))
+##    cvs = PixNum.small_num(2, Color(0, 255, 0))
 ##    
 ##    cvs = matrix.add_subcavas(Canvas(), cvs)
 ##    
@@ -39,10 +39,10 @@ def test_nums():
     for i in range(10):
         cvs = Canvas()
         
-        subcvs_0 = PixNum.canvas_for_num(i - 1, Color(255, 0, 0))
+        subcvs_0 = NumCanvas.small_num(i - 1, Color(255, 0, 0))
         cvs.add_subcanvas(subcvs_0)
         
-        subcvs_1 = PixNum.canvas_for_num(i, Color(0, 0, 255))
+        subcvs_1 = NumCanvas.small_num(i, Color(0, 0, 255))
         cvs.add_subcanvas(subcvs_1, Point(5, 5))
         
         matrix.draw_canvas(cvs)
@@ -60,11 +60,11 @@ def clock():
         if int(time_hr) > 12:
             time_hr = '0' + str(int(time_hr) - 12)
     
-        hr_pos1 = PixNum.canvas_for_num(int(time_hr[0]), Color(255, 0, 0))
-        hr_pos2 = PixNum.canvas_for_num(int(time_hr[1]), Color(255, 0, 0))
+        hr_pos1 = NumCanvas.small_num(int(time_hr[0]), Color(255, 0, 0))
+        hr_pos2 = NumCanvas.small_num(int(time_hr[1]), Color(255, 0, 0))
     
-        mn_pos1 = PixNum.canvas_for_num(int(time_mn[0]), Color(0, 0, 255))
-        mn_pos2 = PixNum.canvas_for_num(int(time_mn[1]), Color(0, 0, 255))
+        mn_pos1 = NumCanvas.small_num(int(time_mn[0]), Color(0, 0, 255))
+        mn_pos2 = NumCanvas.small_num(int(time_mn[1]), Color(0, 0, 255))
     
         time_cvs = Canvas(15, 5)
         time_cvs.add_subcanvas(hr_pos1).add_subcanvas(hr_pos2, Point(4, 0)).add_subcanvas(mn_pos1, Point(8, 0)).add_subcanvas(mn_pos2, Point(12, 0))
