@@ -73,4 +73,47 @@ def clock():
     
         matrix.draw_canvas(cvs)
         
-clock()
+def clock_big():
+    matrix = EzMatrix()
+    
+    while True:
+        time = datetime.now(pytz.timezone('US/Pacific'))
+        time_hr = time.strftime('%H')
+        time_mn = time.strftime('%M')
+        
+        if int(time_hr) > 12:
+            time_hr = '0' + str(int(time_hr) - 12)
+    
+        hr_pos1 = NumCanvas.big_num(int(time_hr[0]), Color(255, 0, 0))
+        hr_pos2 = NumCanvas.big_num(int(time_hr[1]), Color(255, 0, 0))
+        
+        colon = NumCanvas.big_num(':', Color(255, 0, 0))
+    
+        mn_pos1 = NumCanvas.big_num(int(time_mn[0]), Color(0, 0, 255))
+        mn_pos2 = NumCanvas.big_num(int(time_mn[1]), Color(0, 0, 255))
+    
+        time_cvs = Canvas(25, 7)
+        time_cvs.add_subcanvas(hr_pos1).add_subcanvas(hr_pos2, Point(6, 0)).add_subcanvas(colon, Point(12, 0)).add_subcanvas(mn_pos1, Point(14, 0)).add_subcanvas(mn_pos2, Point(20, 0))
+        
+        cvs = Canvas().add_subcanvas(time_cvs, Point(3, 12))
+    
+        matrix.draw_canvas(cvs)
+        
+        
+def draw_rect():
+    top_l = Point(0, 0)
+    top_r = Point(7, 0)
+    bot_r = Point(7, 9)
+    bot_l = Point(0, 9)
+    
+    matrix = EzMatrix()
+    
+    cvs = matrix.draw_line_canvas(top_l, bot_l, Color(0, 0, 255), Canvas())
+    cvs = matrix.draw_line_canvas(bot_l, bot_r, Color(0, 0, 255), cvs)
+    cvs = matrix.draw_line_canvas(bot_r, top_r, Color(0, 0, 255), cvs)
+    cvs = matrix.draw_line_canvas(top_r, top_l, Color(0, 0, 255), cvs)
+    
+    while True:
+        matrix.draw_canvas(cvs)
+        
+clock_big()
