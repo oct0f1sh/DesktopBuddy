@@ -21,17 +21,14 @@ def run_anim():
     while True:
     
         matrix.run_anim(anim, 1)
-        
-##def disp_num():
-##    matrix = EzMatrix()
-##    
-##    cvs = PixNum.small_num(2, Color(0, 255, 0))
-##    
-##    cvs = matrix.add_subcavas(Canvas(), cvs)
-##    
-##    while True:
-##        
-##        matrix.draw_canvas(cvs)
+
+def test():
+    matrix = EzMatrix()
+    
+    anim = Animation().rect_rotation(Point(8, 8), 15, Color(255, 0, 0))
+    
+    while True:
+        matrix.run_anim(anim, 1)
         
 def test_nums():
     matrix = EzMatrix()
@@ -50,30 +47,6 @@ def test_nums():
         time.sleep(1)
         
 def clock():
-    matrix = EzMatrix()
-    
-    while True:
-        time = datetime.now(pytz.timezone('US/Pacific'))
-        time_hr = time.strftime('%H')
-        time_mn = time.strftime('%M')
-        
-        if int(time_hr) > 12:
-            time_hr = '0' + str(int(time_hr) - 12)
-    
-        hr_pos1 = NumCanvas.small_num(int(time_hr[0]), Color(255, 0, 0))
-        hr_pos2 = NumCanvas.small_num(int(time_hr[1]), Color(255, 0, 0))
-    
-        mn_pos1 = NumCanvas.small_num(int(time_mn[0]), Color(0, 0, 255))
-        mn_pos2 = NumCanvas.small_num(int(time_mn[1]), Color(0, 0, 255))
-    
-        time_cvs = Canvas(15, 5)
-        time_cvs.add_subcanvas(hr_pos1).add_subcanvas(hr_pos2, Point(4, 0)).add_subcanvas(mn_pos1, Point(8, 0)).add_subcanvas(mn_pos2, Point(12, 0))
-        
-        cvs = Canvas().add_subcanvas(time_cvs, Point(8, 13))
-    
-        matrix.draw_canvas(cvs)
-        
-def clock_big():
     matrix = EzMatrix()
     
     green = Color(0, 0, 255)
@@ -170,4 +143,4 @@ def draw_rect():
     while True:
         matrix.draw_canvas(cvs)
         
-draw_rect()
+test()
