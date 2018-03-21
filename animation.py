@@ -25,7 +25,8 @@ def run_anim():
 def test():
     matrix = EzMatrix()
     
-    anim = Animation().rect_rotation(Point(8, 8), 15, Color(255, 0, 0))
+    anim = Animation().rect_rotation(Point(0, 0), 31, Color(255, 0, 0))
+    anim.rect_rotation(Point(2, 2), 5, Color(0, 255, 0))
     
     while True:
         matrix.run_anim(anim, 1)
@@ -143,4 +144,4 @@ def draw_rect():
     while True:
         matrix.draw_canvas(cvs)
         
-test()
+clock()
