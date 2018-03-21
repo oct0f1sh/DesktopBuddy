@@ -154,13 +154,20 @@ def draw_rect():
     bot_l = Point(0, 9)
     
     matrix = EzMatrix()
+    cvs = Canvas()
+    blue = Color(0, 0, 255)
     
-    cvs = matrix.draw_line_canvas(top_l, bot_l, Color(0, 0, 255), Canvas())
-    cvs = matrix.draw_line_canvas(bot_l, bot_r, Color(0, 0, 255), cvs)
-    cvs = matrix.draw_line_canvas(bot_r, top_r, Color(0, 0, 255), cvs)
-    cvs = matrix.draw_line_canvas(top_r, top_l, Color(0, 0, 255), cvs)
+    cvs.draw_line(top_l, bot_l, blue)
+    cvs.draw_line(bot_l, bot_r, blue)
+    cvs.draw_line(bot_r, top_r, blue)
+    cvs.draw_line(top_r, top_l, blue)
     
+##    cvs = matrix.draw_line_canvas(top_l, bot_l, Color(0, 0, 255), Canvas())
+##    cvs = matrix.draw_line_canvas(bot_l, bot_r, Color(0, 0, 255), cvs)
+##    cvs = matrix.draw_line_canvas(bot_r, top_r, Color(0, 0, 255), cvs)
+##    cvs = matrix.draw_line_canvas(top_r, top_l, Color(0, 0, 255), cvs)
+##    
     while True:
         matrix.draw_canvas(cvs)
         
-clock_big()
+draw_rect()

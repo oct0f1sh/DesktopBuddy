@@ -19,8 +19,6 @@ class EzMatrix(object):
             for x in range(len(canvas[y])):
                 pixel = canvas[y][x]
                 self.matrix.SetPixel(x, y, pixel.r, pixel.g, pixel.b)
-
-    
                 
     def run_anim(self, anim, sleep):
         sleep = float(sleep) / float(self.matrix.height)
@@ -89,10 +87,6 @@ class EzMatrix(object):
             anim[i] = self.draw_line_canvas(point_top, point_left, color, anim[i])
             
         return anim
-    
-    def draw_numer(self, number, point, color):
-        cvs = Canvas()
-
         
         
 class Geometry():
@@ -163,4 +157,17 @@ class Canvas(list):
             for x in range(len(subcanvas[y])):
                 self[y + translation.y][x + translation.x] = subcanvas[y][x]
                 
+        return self
+    
+    def draw_line(self, start, end, color):
+        points = Geometry.get_points_in_line(start, end)
+
+        for point in points:
+            x = int(round(point.x, 0))
+            y = int(round(point.y, 0))
+            
+            #print('({}, {})'.format(x, y))
+            
+            self[y][x] = color
+        
         return self
