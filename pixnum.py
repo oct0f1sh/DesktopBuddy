@@ -82,77 +82,77 @@ class NumCanvas():
                    [o, o, c, o, o],
                    [c, c, c, c, c]]
         if number == 2:
-            cvs = [[o, c, c, c, o],
-                   [c, o, o, o, c],
+            cvs = [[c, c, c, c, c],
                    [o, o, o, o, c],
-                   [o, o, c, c, o],
-                   [o, c, o, o, o],
+                   [o, o, o, o, c],
+                   [c, c, c, c, c],
+                   [c, o, o, o, o],
                    [c, o, o, o, o],
                    [c, c, c, c, c]]
         if number == 3:
-            cvs = [[c, c, c, c, o],
+            cvs = [[c, c, c, c, c],
                    [o, o, o, o, c],
                    [o, o, o, o, c],
-                   [o, c, c, c, o],
+                   [o, c, c, c, c],
                    [o, o, o, o, c],
                    [o, o, o, o, c],
-                   [c, c, c, c, o]]
+                   [c, c, c, c, c]]
         if number == 4:
-            cvs = [[o, o, o, c, o],
-                   [o, o, c, c, o],
-                   [o, c, o, c, o],
-                   [c, o, o, c, o],
+            cvs = [[c, o, o, o, c],
+                   [c, o, o, o, c],
+                   [c, o, o, o, c],
                    [c, c, c, c, c],
-                   [o, o, o, c, o],
-                   [o, o, o, c, o]]
+                   [o, o, o, o, c],
+                   [o, o, o, o, c],
+                   [o, o, o, o, c]]
         if number == 5:
             cvs = [[c, c, c, c, c],
                    [c, o, o, o, o],
-                   [c, c, c, c, o],
-                   [o, o, o, o, c],
-                   [o, o, o, o, c],
-                   [c, o, o, o, c],
-                   [o, c, c, c, o]]
-        if number == 6:
-            cvs = [[o, c, c, c, o],
-                   [c, o, o, o, c],
                    [c, o, o, o, o],
-                   [c, c, c, c, o],
+                   [c, c, c, c, c],
+                   [o, o, o, o, c],
+                   [o, o, o, o, c],
+                   [c, c, c, c, c]]
+        if number == 6:
+            cvs = [[c, c, c, c, c],
+                   [c, o, o, o, o],
+                   [c, o, o, o, o],
+                   [c, c, c, c, c],
                    [c, o, o, o, c],
                    [c, o, o, o, c],
-                   [o, c, c, c, o]]
+                   [c, c, c, c, c]]
         if number == 7:
             cvs = [[c, c, c, c, c],
                    [o, o, o, o, c],
-                   [o, o, o, c, o],
-                   [o, o, c, o, o],
-                   [o, o, c, o, o],
-                   [o, o, c, o, o],
-                   [o, o, c, o, o]]
-        if number == 8:
-            cvs = [[o, c, c, c, o],
-                   [c, o, o, o, c],
-                   [c, o, o, o, c],
-                   [o, c, c, c, o],
-                   [c, o, o, o, c],
-                   [c, o, o, o, c],
-                   [o, c, c, c, o]]
-        if number == 9:
-            cvs = [[o, c, c, c, o],
-                   [c, o, o, o, c],
-                   [c, o, o, o, c],
-                   [o, c, c, c, c],
                    [o, o, o, o, c],
+                   [o, o, o, o, c],
+                   [o, o, o, o, c],
+                   [o, o, o, o, c],
+                   [o, o, o, o, c]]
+        if number == 8:
+            cvs = [[c, c, c, c, c],
                    [c, o, o, o, c],
-                   [o, c, c, c, o]]
+                   [c, o, o, o, c],
+                   [c, c, c, c, c],
+                   [c, o, o, o, c],
+                   [c, o, o, o, c],
+                   [c, c, c, c, c]]
+        if number == 9:
+            cvs = [[c, c, c, c, c],
+                   [c, o, o, o, c],
+                   [c, o, o, o, c],
+                   [c, c, c, c, c],
+                   [o, o, o, o, c],
+                   [o, o, o, o, c],
+                   [o, o, o, o, c]]
         if number == 0:
-            cvs = [[o, c, c, c, o],
+            cvs = [[c, c, c, c, c],
                    [c, o, o, o, c],
-                   [c, o, o, c, c],
-                   [c, o, c, o, c],
-                   [c, c, o, o, c],
                    [c, o, o, o, c],
-                   [o, c, c, c, o]]
+                   [c, o, o, o, c],
+                   [c, o, o, o, c],
+                   [c, o, o, o, c],
+                   [c, c, c, c, c]]
         if number == ':':
             cvs = [[o],
                    [o],

@@ -87,6 +87,8 @@ def clock_big():
         time_hr = time.strftime('%H')
         time_mn = time.strftime('%M')
         
+        time_sec = int(time.strftime('%S'))
+        
         date_mon = time.strftime('%m')
         date_day = time.strftime('%d')
         date_year = time.strftime('%y')
@@ -106,8 +108,11 @@ def clock_big():
         hr_pos1 = NumCanvas.big_num(int(time_hr[0]), Color(255, 0, 0))
         hr_pos2 = NumCanvas.big_num(int(time_hr[1]), Color(255, 0, 0))
         
-        colon = NumCanvas.big_num(':', Color(255, 0, 0))
-    
+        if time_sec % 2 == 0:
+            colon = NumCanvas.big_num(':', Color(255, 0, 0))
+        else:
+            colon = Canvas(0,7)
+        
         mn_pos1 = NumCanvas.big_num(int(time_mn[0]), Color(0, 0, 255))
         mn_pos2 = NumCanvas.big_num(int(time_mn[1]), Color(0, 0, 255))
         
@@ -128,6 +133,18 @@ def clock_big():
         canvas = Canvas().add_subcanvas(cvs, Point(3, 9))
     
         matrix.draw_canvas(canvas)
+        
+def num_cycle():
+    matrix = EzMatrix()
+    for i in range(10):
+        b_cvs = NumCanvas.big_num(i, Color(255, 0, 0))
+        s_cvs = NumCanvas.small_num(i, Color(255, 0, 0))
+        
+        cvs = Canvas().add_subcanvas(b_cvs).add_subcanvas(s_cvs, Point(6, 0))
+        
+        matrix.draw_canvas(cvs)
+        
+        time.sleep(1)
         
         
 def draw_rect():
