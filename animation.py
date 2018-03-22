@@ -3,35 +3,15 @@ from pixnum import *
 import time
 import pytz
 from datetime import datetime
-
-
+import sys
     
-green = Color(0, 0, 255)
+green = Color(0, 255, 0)
 red = Color(255, 0, 0)
-blue = Color(0, 255, 0)
+blue = Color(0, 0, 255)
 gray = Color(128, 128, 128)
 white = Color(255, 255, 255)
-    
 
-##def run_anim():
-##    matrix = EzMatrix()
-##
-##    cvs = Canvas()
-##
-##    anim = matrix.rotate_square_canvas(Color(0, 255, 0), cvs)
-##    anim = matrix.rotate_subsquare_on_anim(Point(2, 2), 27, Color(255, 0, 0), anim)
-##    anim = matrix.rotate_subsquare_on_anim(Point(4, 4), 23, Color(0, 0, 255), anim)
-##    anim = matrix.rotate_subsquare_on_anim(Point(6, 6), 19, Color(0, 255, 0), anim)
-##    anim = matrix.rotate_subsquare_on_anim(Point(8, 8), 15, Color(255, 0, 0), anim)
-##    anim = matrix.rotate_subsquare_on_anim(Point(10, 10), 11, Color(0, 0, 255), anim)
-##    anim = matrix.rotate_subsquare_on_anim(Point(12, 12), 7, Color(0, 255, 0), anim)
-##    anim = matrix.rotate_subsquare_on_anim(Point(14, 14), 3, Color(255, 0, 0), anim)
-##
-##    while True:
-##    
-##        matrix.run_anim(anim, 1)
-
-def test():
+def run_anim():
     matrix = EzMatrix()
     
     anim = Animation().rect_rotation(Point(0, 0), 31, red)
@@ -52,10 +32,10 @@ def test_nums():
     for i in range(10):
         cvs = Canvas()
         
-        subcvs_0 = NumCanvas.small_num(i - 1, Color(255, 0, 0))
+        subcvs_0 = NumCanvas.small_num(i - 1, white)
         cvs.add_subcanvas(subcvs_0)
         
-        subcvs_1 = NumCanvas.small_num(i, Color(0, 0, 255))
+        subcvs_1 = NumCanvas.small_num(i, white)
         cvs.add_subcanvas(subcvs_1, Point(5, 5))
         
         matrix.draw_canvas(cvs)
@@ -88,16 +68,16 @@ def clock():
         year_pos1 = NumCanvas.small_num(int(date_year[0]), white)
         year_pos2 = NumCanvas.small_num(int(date_year[1]), white)
     
-        hr_pos1 = NumCanvas.big_num(int(time_hr[0]), Color(255, 0, 0))
-        hr_pos2 = NumCanvas.big_num(int(time_hr[1]), Color(255, 0, 0))
+        hr_pos1 = NumCanvas.big_num(int(time_hr[0]), red)
+        hr_pos2 = NumCanvas.big_num(int(time_hr[1]), red)
         
         if time_sec % 2 == 0:
-            colon = NumCanvas.big_num(':', Color(255, 0, 0))
+            colon = NumCanvas.big_num(':', red)
         else:
             colon = Canvas(0,7)
         
-        mn_pos1 = NumCanvas.big_num(int(time_mn[0]), Color(0, 0, 255))
-        mn_pos2 = NumCanvas.big_num(int(time_mn[1]), Color(0, 0, 255))
+        mn_pos1 = NumCanvas.big_num(int(time_mn[0]), blue)
+        mn_pos2 = NumCanvas.big_num(int(time_mn[1]), blue)
         
         date_cvs = Canvas(25, 5)
         date_cvs.add_subcanvas(month_pos1).add_subcanvas(month_pos2, Point(4, 0))
@@ -120,8 +100,8 @@ def clock():
 def num_cycle():
     matrix = EzMatrix()
     for i in range(10):
-        b_cvs = NumCanvas.big_num(i, Color(255, 0, 0))
-        s_cvs = NumCanvas.small_num(i, Color(255, 0, 0))
+        b_cvs = NumCanvas.big_num(i, red)
+        s_cvs = NumCanvas.small_num(i, red)
         
         cvs = Canvas().add_subcanvas(b_cvs).add_subcanvas(s_cvs, Point(6, 0))
         
@@ -138,7 +118,6 @@ def draw_rect():
     
     matrix = EzMatrix()
     cvs = Canvas()
-    blue = Color(0, 0, 255)
     
     cvs.draw_line(top_l, bot_l, blue)
     cvs.draw_line(bot_l, bot_r, blue)
@@ -147,5 +126,8 @@ def draw_rect():
     
     while True:
         matrix.draw_canvas(cvs)
-        
-test()
+
+if sys.argv[1] == 'clock':
+    clock()
+elif sys.argv[1] == rect:
+    run_anim()
