@@ -26,67 +26,6 @@ class EzMatrix(object):
             self.draw_canvas(canvas)
             time.sleep(sleep)
             self.matrix.Clear()
-
-##    def draw_line_canvas(self, start, end, color, canvas):
-##        points = Geometry.get_points_in_line(start, end)
-##
-##        for point in points:
-##            x = int(round(point.x, 0))
-##            y = int(round(point.y, 0))
-##            
-##            #print('({}, {})'.format(x, y))
-##            
-##            canvas[y][x] = color
-##        
-##        return canvas
-            
-##    def rotate_square_canvas(self, color, canvas):
-##        cvs = canvas
-##        point_left = Point(0, 0)
-##        point_bottom = Point(0, 31)
-##        point_right = Point(31, 31)
-##        point_top = Point(31, 0)
-##        
-##        anim = []
-##        
-##        for _ in range(self.matrix.height - 1):
-##            cvs = self.draw_line_canvas(point_left, point_bottom, color, cvs)
-##            cvs = self.draw_line_canvas(point_bottom, point_right, color, cvs)
-##            cvs = self.draw_line_canvas(point_right, point_top, color, cvs)
-##            cvs = self.draw_line_canvas(point_top, point_left, color, cvs)
-##            
-##            point_left.y += 1
-##            point_bottom.x += 1
-##            point_right.y -= 1
-##            point_top.x -= 1
-##        
-##            anim.append(cvs)
-##            
-##            cvs = Canvas()
-##            
-##        return anim
-        
-##    def rotate_subsquare_on_anim(self, point, size, color, anim):
-##        point_left = point
-##        point_bottom = Point(point_left.x, point_left.y + size)
-##        point_right = Point(point_bottom.x + size, point_bottom.y)
-##        point_top = Point(point_right.x, point_right.y - size)
-##        
-##        for i, canvas in enumerate(anim):
-##            wait = float(1/float(size)) * float(len(anim))
-##            
-##            if i != 0 and i % wait < 1:
-##                point_left.y += 1
-##                point_bottom.x += 1
-##                point_right.y -= 1
-##                point_top.x -= 1
-##            #else:
-##            anim[i] = self.draw_line_canvas(point_left, point_bottom, color, anim[i])
-##            anim[i] = self.draw_line_canvas(point_bottom, point_right, color, anim[i])
-##            anim[i] = self.draw_line_canvas(point_right, point_top, color, anim[i])
-##            anim[i] = self.draw_line_canvas(point_top, point_left, color, anim[i])
-##            
-##        return anim
         
         
 class Geometry():

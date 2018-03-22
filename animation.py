@@ -4,29 +4,44 @@ import time
 import pytz
 from datetime import datetime
 
-def run_anim():
-    matrix = EzMatrix()
 
-    cvs = Canvas()
-
-    anim = matrix.rotate_square_canvas(Color(0, 255, 0), cvs)
-    anim = matrix.rotate_subsquare_on_anim(Point(2, 2), 27, Color(255, 0, 0), anim)
-    anim = matrix.rotate_subsquare_on_anim(Point(4, 4), 23, Color(0, 0, 255), anim)
-    anim = matrix.rotate_subsquare_on_anim(Point(6, 6), 19, Color(0, 255, 0), anim)
-    anim = matrix.rotate_subsquare_on_anim(Point(8, 8), 15, Color(255, 0, 0), anim)
-    anim = matrix.rotate_subsquare_on_anim(Point(10, 10), 11, Color(0, 0, 255), anim)
-    anim = matrix.rotate_subsquare_on_anim(Point(12, 12), 7, Color(0, 255, 0), anim)
-    anim = matrix.rotate_subsquare_on_anim(Point(14, 14), 3, Color(255, 0, 0), anim)
-
-    while True:
     
-        matrix.run_anim(anim, 1)
+green = Color(0, 0, 255)
+red = Color(255, 0, 0)
+blue = Color(0, 255, 0)
+gray = Color(128, 128, 128)
+white = Color(255, 255, 255)
+    
+
+##def run_anim():
+##    matrix = EzMatrix()
+##
+##    cvs = Canvas()
+##
+##    anim = matrix.rotate_square_canvas(Color(0, 255, 0), cvs)
+##    anim = matrix.rotate_subsquare_on_anim(Point(2, 2), 27, Color(255, 0, 0), anim)
+##    anim = matrix.rotate_subsquare_on_anim(Point(4, 4), 23, Color(0, 0, 255), anim)
+##    anim = matrix.rotate_subsquare_on_anim(Point(6, 6), 19, Color(0, 255, 0), anim)
+##    anim = matrix.rotate_subsquare_on_anim(Point(8, 8), 15, Color(255, 0, 0), anim)
+##    anim = matrix.rotate_subsquare_on_anim(Point(10, 10), 11, Color(0, 0, 255), anim)
+##    anim = matrix.rotate_subsquare_on_anim(Point(12, 12), 7, Color(0, 255, 0), anim)
+##    anim = matrix.rotate_subsquare_on_anim(Point(14, 14), 3, Color(255, 0, 0), anim)
+##
+##    while True:
+##    
+##        matrix.run_anim(anim, 1)
 
 def test():
     matrix = EzMatrix()
     
-    anim = Animation().rect_rotation(Point(0, 0), 31, Color(255, 0, 0))
-    anim.rect_rotation(Point(2, 2), 5, Color(0, 255, 0))
+    anim = Animation().rect_rotation(Point(0, 0), 31, red)
+    anim.rect_rotation(Point(2, 2), 27, green)
+    anim.rect_rotation(Point(4, 4), 23, blue)
+    anim.rect_rotation(Point(6, 6), 19, red)
+    anim.rect_rotation(Point(8, 8), 15, green)
+    anim.rect_rotation(Point(10, 10), 11, blue)
+    anim.rect_rotation(Point(12, 12), 7, red)
+    anim.rect_rotation(Point(14, 14), 3, green)
     
     while True:
         matrix.run_anim(anim, 1)
@@ -49,12 +64,6 @@ def test_nums():
         
 def clock():
     matrix = EzMatrix()
-    
-    green = Color(0, 0, 255)
-    red = Color(255, 0, 0)
-    blue = Color(0, 255, 0)
-    gray = Color(128, 128, 128)
-    white = Color(255, 255, 255)
     
     while True:
         time = datetime.now(pytz.timezone('US/Pacific'))
@@ -136,12 +145,7 @@ def draw_rect():
     cvs.draw_line(bot_r, top_r, blue)
     cvs.draw_line(top_r, top_l, blue)
     
-##    cvs = matrix.draw_line_canvas(top_l, bot_l, Color(0, 0, 255), Canvas())
-##    cvs = matrix.draw_line_canvas(bot_l, bot_r, Color(0, 0, 255), cvs)
-##    cvs = matrix.draw_line_canvas(bot_r, top_r, Color(0, 0, 255), cvs)
-##    cvs = matrix.draw_line_canvas(top_r, top_l, Color(0, 0, 255), cvs)
-##    
     while True:
         matrix.draw_canvas(cvs)
         
-clock()
+test()
