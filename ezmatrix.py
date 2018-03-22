@@ -111,6 +111,14 @@ class Canvas(list):
         
         return self
     
+    def draw_rectangle(self, top_l, top_r, bot_l, bot_r, color):
+        self.draw_line(top_l, bot_l, color)
+        self.draw_line(bot_l, bot_r, color)
+        self.draw_line(bot_r, top_r, color)
+        self.draw_line(top_r, top_l, color)
+        
+        return self
+    
 class Animation(list):
     def __init__(self, length=32):
         lst = []

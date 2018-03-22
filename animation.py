@@ -93,7 +93,13 @@ def clock():
         cvs.add_subcanvas(date_cvs)
         cvs.add_subcanvas(time_cvs, Point(0, 6))
         
-        canvas = Canvas().add_subcanvas(cvs, Point(3, 9))
+        # rectangle points
+        top_l = Point(2, 8)
+        bot_l = Point(2, 22)
+        bot_r = Point(28, 22)
+        top_r = Point(28, 8)
+        
+        canvas = Canvas().add_subcanvas(cvs, Point(3, 9)).draw_rectangle(top_l, top_r, bot_l, bot_r, green)
     
         matrix.draw_canvas(canvas)
         
