@@ -49,7 +49,7 @@ def num_cycle():
         
         time.sleep(1)
         
-def clock():
+def clock(): # does not include temperature
     matrix = EzMatrix()
     
     while True:
@@ -74,8 +74,8 @@ def draw_rect():
         matrix.draw_canvas(cvs)
         
 
-def draw_temp(ref_rate=3):
-    temp_cvs = Module.temperature_canvas('f', 'san francisco', Color.red())
+def draw_dashboard(ref_rate=3): # includes clock and temperature
+    temp_cvs = Module.temperature_canvas('f', 'san francisco', Color.green())
     
     ref_rate = ref_rate * 60
     
@@ -87,14 +87,14 @@ def draw_temp(ref_rate=3):
         if int(time.time()) - tme == ref_rate:
             print('get temp')
             
-            temp_cvs = Module.temperature_canvas('f', 'san francisco', Color.red())
+            temp_cvs = Module.temperature_canvas('f', 'san francisco', Color.green())
             tme = int(time.time())
             
-        time_cvs = Canvas().add_subcanvas(Module.time_canvas('US/Pacific'), Point(3, 9))
+        time_cvs = Canvas(25, 19).add_subcanvas(Module.time_canvas('US/Pacific'), Point(0, 6))
         
-        time_cvs.add_subcanvas(temp_cvs, Point(18, 3))
+        time_cvs.add_subcanvas(temp_cvs, Point(9, 0))
         
-        matrix.draw_canvas(time_cvs)
+        matrix.draw_canvas(Canvas().add_subcanvas(time_cvs, Point(3, 6)))
         
     
 
@@ -102,5 +102,5 @@ if sys.argv[1] == 'clock':
     clock()
 elif sys.argv[1] == 'rect':
     run_anim()
-elif sys.argv[1] == 'temp':
-    draw_temp(1)
+elif sys.argv[1] == 'dash':
+    draw_dashboard(1)

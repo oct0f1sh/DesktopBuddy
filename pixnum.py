@@ -3,10 +3,9 @@ from ezmatrix import *
 class NumCanvas():
     @staticmethod
     def small_num(number, color):
-        o = Color(0,0,0)
+        o = Color.off()
         c = color
-        # numbers have a sub-canvas size of 3x5 pixels
-        cvs = Canvas(3, 5)
+        
         if number == 1:
             cvs = [[o, c, o], #  X
                    [c, c, o], # XX
@@ -77,8 +76,9 @@ class NumCanvas():
 
     @staticmethod
     def big_num(number, color):
-        o = Color(0,0,0)
+        o = Color.off()
         c = color
+        
         if number == 1:
             cvs = [[o, o, c, o, o], #   X  
                    [o, c, c, o, o], #  XX

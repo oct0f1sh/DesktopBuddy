@@ -5,13 +5,6 @@ import time
 from datetime import datetime
 import pytz
 
-##green = Color(0, 255, 0)
-##red = Color(255, 0, 0)
-##blue = Color(0, 0, 255)
-##gray = Color(128, 128, 128)
-##white = Color(255, 255, 255)
-##off = Color(0, 0, 0)
-
 class Module():
     @staticmethod
     def get_temperature(unit, location):
@@ -37,7 +30,7 @@ class Module():
             temp_pos2 = NumCanvas.small_num(int(temp[1]), color)
             deg = NumCanvas.small_num('deg', color)
         
-        cvs = Canvas(11, 5)
+        cvs = Canvas(10, 5)
     
         cvs.add_subcanvas(temp_pos1).add_subcanvas(temp_pos2, Point(4, 0)).add_subcanvas(deg, Point(8, 0))
     
