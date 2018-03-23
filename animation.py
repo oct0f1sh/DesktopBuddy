@@ -4,7 +4,7 @@ import time
 import pytz
 from datetime import datetime
 import sys
-from modules import Modules
+from modules import Module
     
 green = Color(0, 255, 0)
 red = Color(255, 0, 0)
@@ -124,6 +124,12 @@ def num_cycle():
         
         time.sleep(1)
         
+def test_clock():
+    matrix = EzMatrix()
+    
+    while True:
+        matrix.draw_canvas(Module.get_time_canvas())
+        
         
 def draw_rect():
     top_l = Point(0, 0)
@@ -144,7 +150,7 @@ def draw_rect():
         
 
 def draw_temp():
-    temp_cvs = Modules.get_temperature_canvas()
+    temp_cvs = Module.get_temperature_canvas()
     
     matrix = EzMatrix()
     
@@ -153,7 +159,7 @@ def draw_temp():
     
 
 if sys.argv[1] == 'clock':
-    clock()
+    test_clock()
 elif sys.argv[1] == 'rect':
     run_anim()
 elif sys.argv[1] == 'temp':
