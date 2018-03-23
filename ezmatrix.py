@@ -77,6 +77,10 @@ class Color():
     
     def __repr__(self):
         return('(R:{} G:{} B:{})'.format(self.r, self.g, self.b))
+    
+    @classmethod
+    def red(cls):
+        return cls(255, 0, 0)
 
 class Canvas(list):
     def __init__(self, width=32, height=32):

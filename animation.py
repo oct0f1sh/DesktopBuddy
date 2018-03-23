@@ -44,74 +44,6 @@ def test_nums():
         
         time.sleep(1)
         
-def clock():
-    matrix = EzMatrix()
-    
-    temperature_cvs = None
-    
-    while True:
-        time = datetime.now(pytz.timezone('US/Pacific'))
-        time_hr = time.strftime('%H')
-        time_mn = time.strftime('%M')
-        
-        time_sec = int(time.strftime('%S'))
-        
-        date_mon = time.strftime('%m')
-        date_day = time.strftime('%d')
-        date_year = time.strftime('%y')
-        
-        if int(time_hr) > 12:
-            time_hr = '0' + str(int(time_hr) - 12)
-            
-        month_pos1 = NumCanvas.small_num(int(date_mon[0]), white)
-        month_pos2 = NumCanvas.small_num(int(date_mon[1]), white)
-        
-        day_pos1 = NumCanvas.small_num(int(date_day[0]), gray)
-        day_pos2 = NumCanvas.small_num(int(date_day[1]), gray)
-        
-        year_pos1 = NumCanvas.small_num(int(date_year[0]), white)
-        year_pos2 = NumCanvas.small_num(int(date_year[1]), white)
-    
-        hr_pos1 = NumCanvas.big_num(int(time_hr[0]), red)
-        hr_pos2 = NumCanvas.big_num(int(time_hr[1]), red)
-        
-        if time_sec % 2 == 0:
-            colon = NumCanvas.big_num(':', red)
-        else:
-            colon = Canvas(0,7)
-        
-        mn_pos1 = NumCanvas.big_num(int(time_mn[0]), blue)
-        mn_pos2 = NumCanvas.big_num(int(time_mn[1]), blue)
-        
-        date_cvs = Canvas(25, 5)
-        date_cvs.add_subcanvas(month_pos1).add_subcanvas(month_pos2, Point(4, 0))
-        date_cvs.add_subcanvas(day_pos1, Point(9, 0)).add_subcanvas(day_pos2, Point(13, 0))
-        date_cvs.add_subcanvas(year_pos1, Point(18, 0)).add_subcanvas(year_pos2, Point(22, 0))
-    
-        time_cvs = Canvas(25, 7)
-        time_cvs.add_subcanvas(hr_pos1).add_subcanvas(hr_pos2, Point(6, 0))
-        time_cvs.add_subcanvas(colon, Point(12, 0))
-        time_cvs.add_subcanvas(mn_pos1, Point(14, 0)).add_subcanvas(mn_pos2, Point(20, 0))
-        
-        cvs = Canvas(25, 13)
-        cvs.add_subcanvas(date_cvs)
-        cvs.add_subcanvas(time_cvs, Point(0, 6))
-        
-        if temperature_cvs == None or int(time_mn) % 3 == 0:
-            print('check temp')
-            temperature_cvs = Modules.get_temperature_canvas()
-        
-        # rectangle points
-        top_l = Point(2, 8)
-        bot_l = Point(2, 22)
-        bot_r = Point(28, 22)
-        top_r = Point(28, 8)
-        
-        canvas = Canvas().add_subcanvas(cvs, Point(3, 9)).draw_rectangle(top_l, top_r, bot_l, bot_r, off)
-        canvas.add_subcanvas(temperature_cvs)
-    
-        matrix.draw_canvas(canvas)
-        
 def num_cycle():
     matrix = EzMatrix()
     for i in range(10):
@@ -124,11 +56,11 @@ def num_cycle():
         
         time.sleep(1)
         
-def test_clock():
+def clock():
     matrix = EzMatrix()
     
     while True:
-        matrix.draw_canvas(Module.get_time_canvas())
+        matrix.draw_canvas(Canvas().add_subcanvas(Module.time_canvas('US/Pacific'), Point(3, 9)))
         
         
 def draw_rect():
@@ -149,18 +81,33 @@ def draw_rect():
         matrix.draw_canvas(cvs)
         
 
-def draw_temp():
-    temp_cvs = Module.get_temperature_canvas()
+def draw_temp(ref_rate=3):
+    temp_cvs = Module.temperature_canvas('f', 'san francisco', Color.red())
+    
+    ref_rate = ref_rate * 60
+    
+    tme = int(time.time())
     
     matrix = EzMatrix()
     
     while True:
-        matrix.draw_canvas(temp_cvs)
+        if int(time.time()) - tme == ref_rate:
+            print('get temp')
+            
+            temp_cvs = Module.temperature_canvas('f', 'san francisco', Color.red())
+            tme = int(time.time())
+            
+        time_cvs = Canvas().add_subcanvas(Module.time_canvas('US/Pacific'), Point(3, 9))
+        
+        time_cvs.add_subcanvas(temp_cvs, Point(18, 3))
+        
+        matrix.draw_canvas(time_cvs)
+        
     
 
 if sys.argv[1] == 'clock':
-    test_clock()
+    clock()
 elif sys.argv[1] == 'rect':
     run_anim()
 elif sys.argv[1] == 'temp':
-    draw_temp()
+    draw_temp(1)

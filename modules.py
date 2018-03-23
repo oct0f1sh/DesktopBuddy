@@ -27,15 +27,15 @@ class Module():
         return temp
     
     @staticmethod
-    def get_temperature_canvas():
-        temp = str(Modules.get_temperature('f', 'san francisco'))
+    def temperature_canvas(unit, location, color):
+        temp = str(Module.get_temperature(unit, location))
     
         if len(temp) == 3:
             pass
         else:
-            temp_pos1 = NumCanvas.small_num(int(temp[0]), red)
-            temp_pos2 = NumCanvas.small_num(int(temp[1]), red)
-            deg = NumCanvas.small_num('deg', red)
+            temp_pos1 = NumCanvas.small_num(int(temp[0]), color)
+            temp_pos2 = NumCanvas.small_num(int(temp[1]), color)
+            deg = NumCanvas.small_num('deg', color)
         
         cvs = Canvas(11, 5)
     
@@ -44,8 +44,8 @@ class Module():
         return cvs
     
     @staticmethod
-    def get_time_canvas():
-        time = datetime.now(pytz.timezone('US/Pacific'))
+    def time_canvas(timezone, mon_color=white, day_color=gray, yr_color=white, hr_color=red, col_color=red, min_color=blue):
+        time = datetime.now(pytz.timezone(timezone))
         time_hr = time.strftime('%H')
         time_mn = time.strftime('%M')
         
@@ -58,25 +58,25 @@ class Module():
         if int(time_hr) > 12:
             time_hr = '0' + str(int(time_hr) - 12)
             
-        month_pos1 = NumCanvas.small_num(int(date_mon[0]), white)
-        month_pos2 = NumCanvas.small_num(int(date_mon[1]), white)
+        month_pos1 = NumCanvas.small_num(int(date_mon[0]), mon_color)
+        month_pos2 = NumCanvas.small_num(int(date_mon[1]), mon_color)
         
-        day_pos1 = NumCanvas.small_num(int(date_day[0]), gray)
-        day_pos2 = NumCanvas.small_num(int(date_day[1]), gray)
+        day_pos1 = NumCanvas.small_num(int(date_day[0]), day_color)
+        day_pos2 = NumCanvas.small_num(int(date_day[1]), day_color)
         
-        year_pos1 = NumCanvas.small_num(int(date_year[0]), white)
-        year_pos2 = NumCanvas.small_num(int(date_year[1]), white)
+        year_pos1 = NumCanvas.small_num(int(date_year[0]), yr_color)
+        year_pos2 = NumCanvas.small_num(int(date_year[1]), yr_color)
     
-        hr_pos1 = NumCanvas.big_num(int(time_hr[0]), red)
-        hr_pos2 = NumCanvas.big_num(int(time_hr[1]), red)
+        hr_pos1 = NumCanvas.big_num(int(time_hr[0]), hr_color)
+        hr_pos2 = NumCanvas.big_num(int(time_hr[1]), hr_color)
         
         if time_sec % 2 == 0:
-            colon = NumCanvas.big_num(':', red)
+            colon = NumCanvas.big_num(':', col_color)
         else:
             colon = Canvas(0,7)
         
-        mn_pos1 = NumCanvas.big_num(int(time_mn[0]), blue)
-        mn_pos2 = NumCanvas.big_num(int(time_mn[1]), blue)
+        mn_pos1 = NumCanvas.big_num(int(time_mn[0]), min_color)
+        mn_pos2 = NumCanvas.big_num(int(time_mn[1]), min_color)
         
         date_cvs = Canvas(25, 5)
         date_cvs.add_subcanvas(month_pos1).add_subcanvas(month_pos2, Point(4, 0))
@@ -91,14 +91,5 @@ class Module():
         cvs = Canvas(25, 13)
         cvs.add_subcanvas(date_cvs)
         cvs.add_subcanvas(time_cvs, Point(0, 6))
-        
-##        # rectangle points
-##        top_l = Point(2, 8)
-##        bot_l = Point(2, 22)
-##        bot_r = Point(28, 22)
-##        top_r = Point(28, 8)
-##        
-##        canvas = Canvas().add_subcanvas(cvs, Point(3, 9)).draw_rectangle(top_l, top_r, bot_l, bot_r, off)
-##        canvas.add_subcanvas(temperature_cvs)
     
         return cvs
