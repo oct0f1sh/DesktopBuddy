@@ -168,3 +168,53 @@ class NumCanvas():
                    [o],             #
                    [o]]             #
         return cvs
+    
+    @staticmethod
+    def day_of_week(day, color):
+        o = Color.off()
+        c = color
+        
+        if day == 6:
+            cvs = [[c, c, c, o, c, o, c, o, c, o, o, c],
+                   [c, o, o, o, c, o, c, o, c, c, o, c],
+                   [c, c, c, o, c, o, c, o, c, c, c, c],
+                   [o, o, c, o, c, o, c, o, c, o, c, c],
+                   [c, c, c, o, c, c, c, o, c, o, o, c]]
+        if day == 1:
+            cvs = [[c, o, o, c, o, c, c, c, o, c, o, o, c],
+                   [c, c, c, c, o, c, o, c, o, c, c, o, c],
+                   [c, c, c, c, o, c, o, c, o, c, c, c, c],
+                   [c, o, o, c, o, c, o, c, o, c, o, c, c],
+                   [c, o, o, c, o, c, c, c, o, c, o, o, c]]
+        if day == 2:
+            cvs = [[c, c, c, o, c, o, c, o, c, c, c],
+                   [o, c, o, o, c, o, c, o, c, o, o],
+                   [o, c, o, o, c, o, c, o, c, c, c],
+                   [o, c, o, o, c, o, c, o, c, o, o],
+                   [o, c, o, o, c, c, c, o, c, c, c]]
+        if day == 3:
+            cvs = [[c, o, o, c, o, c, c, c, o, c, c, o],
+                   [c, o, o, c, o, c, o, o, o, c, o, c],
+                   [c, c, c, c, o, c, c, c, o, c, o, c],
+                   [c, c, c, c, o, c, o, o, o, c, o, c],
+                   [c, o, o, c, o, c, c, c, o, c, c, o]]
+        if day == 4:
+            cvs = [[c, c, c, o, c, o, c, o, c, o, c],
+                   [o, c, o, o, c, o, c, o, c, o, c],
+                   [o, c, o, o, c, c, c, o, c, o, c],
+                   [o, c, o, o, c, o, c, o, c, o, c],
+                   [o, c, o, o, c, o, c, o, c, c, c]]
+        if day == 5:
+            cvs = [[c, c, c, o, c, c, c, o, c, c, c],
+                   [c, o, o, o, c, o, c, o, o, c, o],
+                   [c, c, o, o, c, c, c, o, o, c, o],
+                   [c, o, o, o, c, c, o, o, o, c, o],
+                   [c, o, o, o, c, o, c, o, c, c, c]]
+        if day == 6:
+            cvs = [[c, c, c, o, c, c, c, o, c, c, c],
+                   [c, o, o, o, c, o, c, o, o, c, o],
+                   [c, c, c, o, c, c, c, o, o, c, o],
+                   [o, o, c, o, c, o, c, o, o, c, o],
+                   [c, c, c, o, c, o, c, o, o, c, o]]
+            
+        return cvs

@@ -51,14 +51,16 @@ class Module():
         if int(time_hr) > 12:
             time_hr = '0' + str(int(time_hr) - 12)
             
-        month_pos1 = NumCanvas.small_num(int(date_mon[0]), mon_color)
-        month_pos2 = NumCanvas.small_num(int(date_mon[1]), mon_color)
-        
+##        month_pos1 = NumCanvas.small_num(int(date_mon[0]), mon_color)
+##        month_pos2 = NumCanvas.small_num(int(date_mon[1]), mon_color)
+##        
         day_pos1 = NumCanvas.small_num(int(date_day[0]), day_color)
         day_pos2 = NumCanvas.small_num(int(date_day[1]), day_color)
-        
-        year_pos1 = NumCanvas.small_num(int(date_year[0]), yr_color)
-        year_pos2 = NumCanvas.small_num(int(date_year[1]), yr_color)
+##        
+##        year_pos1 = NumCanvas.small_num(int(date_year[0]), yr_color)
+##        year_pos2 = NumCanvas.small_num(int(date_year[1]), yr_color)
+            
+        day_cvs = NumCanvas.day_of_week(datetime.today().weekday() + 1, Color.white())
     
         hr_pos1 = NumCanvas.big_num(int(time_hr[0]), hr_color)
         hr_pos2 = NumCanvas.big_num(int(time_hr[1]), hr_color)
@@ -72,9 +74,11 @@ class Module():
         mn_pos2 = NumCanvas.big_num(int(time_mn[1]), min_color)
         
         date_cvs = Canvas(25, 5)
-        date_cvs.add_subcanvas(month_pos1).add_subcanvas(month_pos2, Point(4, 0))
-        date_cvs.add_subcanvas(day_pos1, Point(9, 0)).add_subcanvas(day_pos2, Point(13, 0))
-        date_cvs.add_subcanvas(year_pos1, Point(18, 0)).add_subcanvas(year_pos2, Point(22, 0))
+        #date_cvs.add_subcanvas(month_pos1).add_subcanvas(month_pos2, Point(4, 0))
+        #date_cvs.add_subcanvas(day_pos1, Point(9, 0)).add_subcanvas(day_pos2, Point(13, 0))
+        #date_cvs.add_subcanvas(year_pos1, Point(18, 0)).add_subcanvas(year_pos2, Point(22, 0))
+        date_cvs.add_subcanvas(day_cvs)
+        date_cvs.add_subcanvas(day_pos1, Point(18, 0)).add_subcanvas(day_pos2, Point(22, 0))
     
         time_cvs = Canvas(25, 7)
         time_cvs.add_subcanvas(hr_pos1).add_subcanvas(hr_pos2, Point(6, 0))
