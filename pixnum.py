@@ -67,6 +67,12 @@ class NumCanvas():
                    [c, o, c], # X X
                    [c, o, c], # X X
                    [c, c, c]] # XXX
+        if number == 'deg':
+            cvs = [[c, c], # XX
+                   [c, c], # XX
+                   [o, o], # 
+                   [o, o], #
+                   [o, o]] # 
         return cvs
 
     @staticmethod

@@ -4,12 +4,14 @@ import time
 import pytz
 from datetime import datetime
 import sys
+from modules import Modules
     
 green = Color(0, 255, 0)
 red = Color(255, 0, 0)
 blue = Color(0, 0, 255)
 gray = Color(128, 128, 128)
 white = Color(255, 255, 255)
+off = Color(0, 0, 0)
 
 def run_anim():
     matrix = EzMatrix()
@@ -44,6 +46,8 @@ def test_nums():
         
 def clock():
     matrix = EzMatrix()
+    
+    temperature_cvs = None
     
     while True:
         time = datetime.now(pytz.timezone('US/Pacific'))
@@ -93,13 +97,18 @@ def clock():
         cvs.add_subcanvas(date_cvs)
         cvs.add_subcanvas(time_cvs, Point(0, 6))
         
+        if temperature_cvs == None or int(time_mn) % 3 == 0:
+            print('check temp')
+            temperature_cvs = Modules.get_temperature_canvas()
+        
         # rectangle points
         top_l = Point(2, 8)
         bot_l = Point(2, 22)
         bot_r = Point(28, 22)
         top_r = Point(28, 8)
         
-        canvas = Canvas().add_subcanvas(cvs, Point(3, 9)).draw_rectangle(top_l, top_r, bot_l, bot_r, green)
+        canvas = Canvas().add_subcanvas(cvs, Point(3, 9)).draw_rectangle(top_l, top_r, bot_l, bot_r, off)
+        canvas.add_subcanvas(temperature_cvs)
     
         matrix.draw_canvas(canvas)
         
@@ -132,8 +141,20 @@ def draw_rect():
     
     while True:
         matrix.draw_canvas(cvs)
+        
+
+def draw_temp():
+    temp_cvs = Modules.get_temperature_canvas()
+    
+    matrix = EzMatrix()
+    
+    while True:
+        matrix.draw_canvas(temp_cvs)
+    
 
 if sys.argv[1] == 'clock':
     clock()
-elif sys.argv[1] == rect:
+elif sys.argv[1] == 'rect':
     run_anim()
+elif sys.argv[1] == 'temp':
+    draw_temp()
