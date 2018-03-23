@@ -81,6 +81,26 @@ class Color():
     @classmethod
     def red(cls):
         return cls(255, 0, 0)
+    
+    @classmethod
+    def green(cls):
+        return cls(0, 255, 0)
+    
+    @classmethod
+    def blue(cls):
+        return cls(0, 0, 255)
+    
+    @classmethod
+    def gray(cls):
+        return cls(128, 128, 128)
+    
+    @classmethod
+    def white(cls):
+        return cls(255, 255, 255)
+    
+    @classmethod
+    def off(cls):
+        return cls(0, 0, 0)
 
 class Canvas(list):
     def __init__(self, width=32, height=32):
@@ -88,7 +108,7 @@ class Canvas(list):
         for row in range(height):
             color_row = []
             for col in range(width):
-                color_row.append(Color(0,0,0))
+                color_row.append(Color.off())
             self.append(color_row)
         self = lst
     

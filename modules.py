@@ -5,12 +5,12 @@ import time
 from datetime import datetime
 import pytz
 
-green = Color(0, 255, 0)
-red = Color(255, 0, 0)
-blue = Color(0, 0, 255)
-gray = Color(128, 128, 128)
-white = Color(255, 255, 255)
-off = Color(0, 0, 0)
+##green = Color(0, 255, 0)
+##red = Color(255, 0, 0)
+##blue = Color(0, 0, 255)
+##gray = Color(128, 128, 128)
+##white = Color(255, 255, 255)
+##off = Color(0, 0, 0)
 
 class Module():
     @staticmethod
@@ -44,7 +44,7 @@ class Module():
         return cvs
     
     @staticmethod
-    def time_canvas(timezone, mon_color=white, day_color=gray, yr_color=white, hr_color=red, col_color=red, min_color=blue):
+    def time_canvas(timezone, mon_color=Color.white(), day_color=Color.gray(), yr_color=Color.white(), hr_color=Color.red(), col_color=Color.red(), min_color=Color.blue()):
         time = datetime.now(pytz.timezone(timezone))
         time_hr = time.strftime('%H')
         time_mn = time.strftime('%M')
