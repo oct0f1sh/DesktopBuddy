@@ -76,7 +76,7 @@ def draw_rect():
 
 def draw_dashboard(ref_rate=3): # includes clock and temperature
     """ ref_rate is the interval (in minutes) between weather API calls """
-    temp_cvs = Module.temperature_canvas('f', 'san francisco', Color.green())
+    temp_cvs = Module.temperature_canvas('f', '94103', Color.green())
     
     ref_rate = ref_rate * 60
     

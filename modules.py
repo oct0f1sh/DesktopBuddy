@@ -37,7 +37,7 @@ class Module():
         return cvs
     
     @staticmethod
-    def time_canvas(timezone, mon_color=Color.white(), day_color=Color.gray(), yr_color=Color.white(), hr_color=Color.red(), col_color=Color.red(), min_color=Color.blue()):
+    def time_canvas(timezone, mon_color=Color.white(), day_color=Color.gray(), yr_color=Color.white(), hr_color=Color.red(), col_color=Color.red(), min_color=Color.red()):
         time = datetime.now(pytz.timezone(timezone))
         time_hr = time.strftime('%H')
         time_mn = time.strftime('%M')
@@ -49,7 +49,10 @@ class Module():
         date_year = time.strftime('%y')
         
         if int(time_hr) > 12:
-            time_hr = '0' + str(int(time_hr) - 12)
+            if int(time_hr) - 12 >= 10:
+                time_hr = str(int(time_hr) - 12)
+            else:
+                time_hr = '0' + str(int(time_hr) - 12)
             
 ##        month_pos1 = NumCanvas.small_num(int(date_mon[0]), mon_color)
 ##        month_pos2 = NumCanvas.small_num(int(date_mon[1]), mon_color)
@@ -60,7 +63,7 @@ class Module():
 ##        year_pos1 = NumCanvas.small_num(int(date_year[0]), yr_color)
 ##        year_pos2 = NumCanvas.small_num(int(date_year[1]), yr_color)
             
-        day_cvs = NumCanvas.day_of_week(datetime.today().weekday() + 1, Color.white())
+        day_cvs = NumCanvas.day_of_week(datetime.today().weekday(), Color.white())
     
         hr_pos1 = NumCanvas.big_num(int(time_hr[0]), hr_color)
         hr_pos2 = NumCanvas.big_num(int(time_hr[1]), hr_color)

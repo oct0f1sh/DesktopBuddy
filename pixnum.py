@@ -11,7 +11,7 @@ class NumCanvas():
                    [c, c, o], # XX
                    [o, c, o], #  X 
                    [o, c, o], #  X 
-                   [c, c, c]] # XXX
+                   [o, c, o]] #  X
         if number == 2:
             cvs = [[c, c, c], # XXX
                    [o, o, c], #   X
@@ -80,13 +80,13 @@ class NumCanvas():
         c = color
         
         if number == 1:
-            cvs = [[o, o, c, o, o], #   X  
-                   [o, c, c, o, o], #  XX
-                   [c, o, c, o, o], # X X
-                   [o, o, c, o, o], #   X
-                   [o, o, c, o, o], #   X
-                   [o, o, c, o, o], #   X
-                   [c, c, c, c, c]] # XXXXX
+            cvs = [[o, o, o, o, c], #   X  
+                   [o, o, o, c, c], #  XX
+                   [o, o, o, o, c], #   X
+                   [o, o, o, o, c], #   X
+                   [o, o, o, o, c], #   X
+                   [o, o, o, o, c], #   X
+                   [o, o, o, o, c]] #   X
         if number == 2:
             cvs = [[c, c, c, c, c], # XXXXX
                    [o, o, o, o, c], #     X
@@ -180,37 +180,37 @@ class NumCanvas():
                    [c, c, c, o, c, o, c, o, c, c, c, c],
                    [o, o, c, o, c, o, c, o, c, o, c, c],
                    [c, c, c, o, c, c, c, o, c, o, o, c]]
-        if day == 1:
+        if day == 0:
             cvs = [[c, o, o, c, o, c, c, c, o, c, o, o, c],
                    [c, c, c, c, o, c, o, c, o, c, c, o, c],
                    [c, c, c, c, o, c, o, c, o, c, c, c, c],
                    [c, o, o, c, o, c, o, c, o, c, o, c, c],
                    [c, o, o, c, o, c, c, c, o, c, o, o, c]]
-        if day == 2:
+        if day == 1:
             cvs = [[c, c, c, o, c, o, c, o, c, c, c],
                    [o, c, o, o, c, o, c, o, c, o, o],
                    [o, c, o, o, c, o, c, o, c, c, c],
                    [o, c, o, o, c, o, c, o, c, o, o],
                    [o, c, o, o, c, c, c, o, c, c, c]]
-        if day == 3:
+        if day == 2:
             cvs = [[c, o, o, c, o, c, c, c, o, c, c, o],
                    [c, o, o, c, o, c, o, o, o, c, o, c],
                    [c, c, c, c, o, c, c, c, o, c, o, c],
                    [c, c, c, c, o, c, o, o, o, c, o, c],
                    [c, o, o, c, o, c, c, c, o, c, c, o]]
-        if day == 4:
+        if day == 3:
             cvs = [[c, c, c, o, c, o, c, o, c, o, c],
                    [o, c, o, o, c, o, c, o, c, o, c],
                    [o, c, o, o, c, c, c, o, c, o, c],
                    [o, c, o, o, c, o, c, o, c, o, c],
                    [o, c, o, o, c, o, c, o, c, c, c]]
-        if day == 5:
+        if day == 4:
             cvs = [[c, c, c, o, c, c, c, o, c, c, c],
                    [c, o, o, o, c, o, c, o, o, c, o],
                    [c, c, o, o, c, c, c, o, o, c, o],
                    [c, o, o, o, c, c, o, o, o, c, o],
                    [c, o, o, o, c, o, c, o, c, c, c]]
-        if day == 6:
+        if day == 5:
             cvs = [[c, c, c, o, c, c, c, o, c, c, c],
                    [c, o, o, o, c, o, c, o, o, c, o],
                    [c, c, c, o, c, c, c, o, o, c, o],
