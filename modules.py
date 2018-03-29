@@ -17,6 +17,8 @@ class Module():
         
         temp = location.condition().temp()
         
+        print('got temperature as {} {} in {}'.format(temp, unit, location.location().city()))
+        
         return temp
     
     @staticmethod

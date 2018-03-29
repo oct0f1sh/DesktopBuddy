@@ -86,9 +86,7 @@ def draw_dashboard(ref_rate=3): # includes clock and temperature
     
     while True:
         if int(time.time()) - tme == ref_rate:
-            print('get temp')
-            
-            temp_cvs = Module.temperature_canvas('f', 'san francisco', Color.green())
+            temp_cvs = Module.temperature_canvas('f', '94103', Color.green())
             tme = int(time.time())
             
         time_cvs = Canvas(25, 19).add_subcanvas(Module.time_canvas('US/Pacific'), Point(0, 6))
