@@ -4,6 +4,7 @@ from pixnum import *
 import time
 from datetime import datetime
 import pytz
+from PIL import Image
 
 class Module():
     @staticmethod
@@ -95,3 +96,30 @@ class Module():
         cvs.add_subcanvas(time_cvs, Point(0, 6))
     
         return cvs
+    
+    @staticmethod
+    def image_canvas(image_path):
+        img = Image.open(image_path)
+        
+        width, height = img.size
+        
+        if width > 32 or height > 32:
+            img = Module.resize_image(image_path)
+            width, height = img.size
+            
+        cvs = Canvas(width, height)
+        
+        for x in range(width):
+            for y in range(height):
+                r, g, b = img.getpixel((x,y))
+                cvs[y][x] = Color(r, g, b)
+                
+        return cvs
+    
+    @staticmethod
+    def resize_image(image_path, new_width=32, new_height=32):
+        img = Image.open(image_path)
+        
+        img = img.resize((new_width, new_height), Image.ANTIALIAS)
+        
+        return img

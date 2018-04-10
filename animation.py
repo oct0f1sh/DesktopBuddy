@@ -95,8 +95,8 @@ def draw_dashboard(ref_rate=3): # includes clock and temperature
         
         matrix.draw_canvas(Canvas().add_subcanvas(time_cvs, Point(3, 6)))
         
-def test_day():
-    cvs = NumCanvas.day_of_week('sat', Color.red())
+def test_img(image_path):
+    cvs = Module.image_canvas(image_path)
     
     matrix = EzMatrix()
     
@@ -112,4 +112,4 @@ elif sys.argv[1] == 'rect':
 elif sys.argv[1] == 'dash':
     draw_dashboard(1)
 elif sys.argv[1] == 'test':
-    test_day()
+    test_img(sys.argv[2])
