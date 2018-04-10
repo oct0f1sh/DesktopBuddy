@@ -96,13 +96,20 @@ def draw_dashboard(ref_rate=3): # includes clock and temperature
         matrix.draw_canvas(Canvas().add_subcanvas(time_cvs, Point(3, 6)))
         
 def test_img(image_path):
-    cvs = Module.image_canvas(image_path)
+    cvs = Module.image_canvas_from_path(image_path)
     
     matrix = EzMatrix()
     
     while True:
         matrix.draw_canvas(cvs)
-        
+
+def test_gif(gif_path):
+    anim = Module.gif_anim(gif_path)
+    
+    matrix = EzMatrix()
+    
+    while True:
+        matrix.run_anim(anim, 2)
     
 
 if sys.argv[1] == 'clock':
@@ -111,5 +118,7 @@ elif sys.argv[1] == 'rect':
     run_anim()
 elif sys.argv[1] == 'dash':
     draw_dashboard(1)
-elif sys.argv[1] == 'test':
+elif sys.argv[1] == 'image':
     test_img(sys.argv[2])
+elif sys.argv[1] == 'gif':
+    test_gif(sys.argv[2])

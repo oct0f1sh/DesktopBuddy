@@ -173,3 +173,12 @@ class Animation(list):
             self[i] = canvas.draw_line(point_top, point_left, color)
             
         return self
+    
+    def has_data(self):
+        for cvs in self:
+            for row in cvs:
+                for color in row:
+                    if color is not Color(0, 0, 0):
+                        return True
+                    
+        return False

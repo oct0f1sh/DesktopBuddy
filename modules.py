@@ -5,6 +5,7 @@ import time
 from datetime import datetime
 import pytz
 from PIL import Image
+from operator import itemgetter
 
 class Module():
     @staticmethod
@@ -98,28 +99,63 @@ class Module():
         return cvs
     
     @staticmethod
-    def image_canvas(image_path):
-        img = Image.open(image_path)
+    def image_canvas(img):
+        remove_background = False
         
         width, height = img.size
         
         if width > 32 or height > 32:
-            img = Module.resize_image(image_path)
+            img = Module.resize_image(img)
             width, height = img.size
             
         cvs = Canvas(width, height)
         
+        colors = img.getcolors(1000)
+        
+        common_color = max(colors, key=itemgetter(0))[1]
+        
         for x in range(width):
             for y in range(height):
                 r, g, b = img.getpixel((x,y))
-                cvs[y][x] = Color(r, g, b)
+                if (r, g, b) == common_color and remove_background:
+                    cvs[y][x] = Color.off()
+                else:
+                    cvs[y][x] = Color(r, g, b)
                 
         return cvs
     
     @staticmethod
-    def resize_image(image_path, new_width=32, new_height=32):
+    def image_canvas_from_path(image_path):
         img = Image.open(image_path)
         
+        cvs = Module.image_canvas(img)
+        
+        return cvs
+    
+    @staticmethod
+    def resize_image(img, new_width=32, new_height=32):
         img = img.resize((new_width, new_height), Image.ANTIALIAS)
         
         return img
+    
+    @staticmethod
+    def gif_anim(gif_path):
+        frame = Image.open(gif_path)
+        
+        frames = 0
+        
+        anim = []
+        
+        while frame:
+            cvs = Module.image_canvas(frame.convert('RGB'))
+            anim.append(cvs)
+            
+            frames += 1
+            
+            try:
+                frame.seek(frames)
+            except EOFError:
+                print('EOF ERROR AT LENGTH {}'.format(frames))
+                break
+            
+        return anim
