@@ -80,13 +80,13 @@ class NumCanvas():
         c = color
         
         if number == 1:
-            cvs = [[o, o, o, c, o], #   X  
-                   [o, o, c, c, o], #  XX
-                   [o, o, o, c, o], #   X
-                   [o, o, o, c, o], #   X
-                   [o, o, o, c, o], #   X
-                   [o, o, o, c, o], #   X
-                   [o, o, o, c, o]] #   X
+            cvs = [[o, o, o, c, o], #    X  
+                   [o, o, c, c, o], #   XX
+                   [o, o, o, c, o], #    X
+                   [o, o, o, c, o], #    X
+                   [o, o, o, c, o], #    X
+                   [o, o, o, c, o], #    X
+                   [o, o, o, c, o]] #    X
         if number == 2:
             cvs = [[c, c, c, c, c], # XXXXX
                    [o, o, o, o, c], #     X
