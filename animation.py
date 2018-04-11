@@ -109,16 +109,16 @@ def test_gif(gif_path):
     matrix = EzMatrix()
     
     while True:
-        matrix.run_anim(anim, 2)
+        matrix.run_anim(anim)
     
-
-if sys.argv[1] == 'clock':
-    clock()
-elif sys.argv[1] == 'rect':
-    run_anim()
-elif sys.argv[1] == 'dash':
-    draw_dashboard(1)
-elif sys.argv[1] == 'image':
-    test_img(sys.argv[2])
-elif sys.argv[1] == 'gif':
-    test_gif(sys.argv[2])
+if len(sys.argv) > 1:
+    if sys.argv[1] == 'clock':
+        clock()
+    elif sys.argv[1] == 'rect':
+        run_anim()
+    elif sys.argv[1] == 'dash':
+        draw_dashboard(1)
+    elif sys.argv[1] == 'image':
+        test_img(sys.argv[2])
+    elif sys.argv[1] == 'gif':
+        test_gif(sys.argv[2])

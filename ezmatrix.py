@@ -20,8 +20,11 @@ class EzMatrix(object):
                 pixel = canvas[y][x]
                 self.matrix.SetPixel(x, y, pixel.r, pixel.g, pixel.b)
                 
-    def run_anim(self, anim, sleep):
-        sleep = float(sleep) / float(self.matrix.height)
+    def run_anim(self, anim):
+        #sleep = float(sleep) / float(self.matrix.height)
+        
+        sleep = 0.07
+        
         for canvas in anim:
             self.draw_canvas(canvas)
             time.sleep(sleep)

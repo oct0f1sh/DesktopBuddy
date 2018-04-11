@@ -126,7 +126,11 @@ class Module():
     
     @staticmethod
     def image_canvas_from_path(image_path):
-        img = Image.open(image_path)
+        try:
+            img = Image.open(image_path)
+        except IOError:
+            print('ERROR: FILE NOT FOUND')
+            return Canvas()
         
         cvs = Module.image_canvas(img)
         
@@ -140,7 +144,13 @@ class Module():
     
     @staticmethod
     def gif_anim(gif_path):
-        frame = Image.open(gif_path)
+        print('COMPILING GIF...')
+        
+        try:
+            frame = Image.open(gif_path)
+        except IOError:
+            print('ERROR: FILE NOT FOUND')
+            return []
         
         frames = 0
         
@@ -152,10 +162,12 @@ class Module():
             
             frames += 1
             
+            print('frame {} compiled'.format(frames))
+            
             try:
                 frame.seek(frames)
             except EOFError:
-                print('EOF ERROR AT LENGTH {}'.format(frames))
+                print('GIF COMPILED, LENGTH: {}'.format(frames))
                 break
             
         return anim
