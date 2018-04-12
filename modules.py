@@ -129,7 +129,7 @@ class Module():
         try:
             img = Image.open(image_path)
         except IOError:
-            print('ERROR: FILE NOT FOUND')
+            print('ERROR: FILE NOT FOUND AT {}'.format(image_path))
             return Canvas()
         
         cvs = Module.image_canvas(img)
@@ -149,7 +149,7 @@ class Module():
         try:
             frame = Image.open(gif_path)
         except IOError:
-            print('ERROR: FILE NOT FOUND')
+            print('ERROR: FILE NOT FOUND AT {}'.format(gif_path))
             return []
         
         frames = 0
@@ -162,7 +162,7 @@ class Module():
             
             frames += 1
             
-            print('frame {} compiled'.format(frames))
+            print('COMPILED FRAME {}'.format(frames))
             
             try:
                 frame.seek(frames)

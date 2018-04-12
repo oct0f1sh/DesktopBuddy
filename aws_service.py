@@ -26,6 +26,32 @@ class AnimationThread(threading.Thread):
     def run(self):
         while not self.should_stop:
             matrix.run_anim(self.anim)
+            
+class ClockThread(threading.Thread):
+    def __init__(self, ref_rate, unit, zip_code, region, temp_color=Color.green()):
+        super(ClockThread, self).__init__()
+        self.should_stop = False
+        self.ref_rate = ref_rate * 60 # convert ref_rate from minutes to seconds
+        self.unit = unit
+        self.zip_code = zip_code
+        self.region = region
+        self.temp_color = temp_color
+        
+    def run(self):
+        temp_cvs = Module.temperature_canvas(self.unit, self.zip_code, self.temp_color)
+        
+        tme = int(time.time())
+        
+        while not self.should_stop:
+            if int(time.time()) - tme == self.ref_rate:
+                temp_cvs = Module.temperature_canvas(self.unit, self.zip_code, self.temp_color)
+                tme = int(time.time())
+                
+            time_cvs = Canvas(25, 19).add_subcanvas(Module.time_canvas(self.region), Point(0, 6))
+            
+            time_cvs.add_subcanvas(temp_cvs, Point(9, 0))
+            
+            matrix.draw_canvas(Canvas().add_subcanvas(time_cvs, Point(3, 6)))
 
 class CallbackContainer(object):
     def __init__(self, client):
@@ -38,8 +64,8 @@ class CallbackContainer(object):
         except ValueError:
             print('MISSING DELIMITER IN JSON')
         
-        if 'arg' in message.payload:
-            args = json.loads(message.payload)['arg']
+        if 'args' in message.payload:
+            args = json.loads(message.payload)['args']
         else:
             args = ''
         
@@ -51,12 +77,15 @@ class CallbackContainer(object):
             self.thread.join()
 
         if 'clock' in msg:
-            '''display clock'''
-            pass
+            self.thread = ClockThread(3, 'f', '94103', 'US/Pacific')
+            self.thread.should_stop = False
+            self.thread.start()
         if 'image' in msg:
             ''' display image '''
             pass
         if 'gif' in msg:
+            args = './gifs/' + args + '.gif'
+            
             anim = Module.gif_anim(args)
             
             self.thread = AnimationThread(anim)
