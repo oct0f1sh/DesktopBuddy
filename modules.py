@@ -6,6 +6,7 @@ from datetime import datetime
 import pytz
 from PIL import Image
 from operator import itemgetter
+import urllib
 
 class Module():
     @staticmethod
@@ -96,7 +97,7 @@ class Module():
         width, height = img.size
         
         if width > 32 or height > 32:
-            img = Module.resize_image(img)
+            img = Module._resize_image(img)
             width, height = img.size
             
         cvs = Canvas(width, height)
@@ -128,7 +129,18 @@ class Module():
         return cvs
     
     @staticmethod
-    def resize_image(img, new_width=32, new_height=32):
+    def image_canvas_from_url(url):
+        img = Module._download_image(url)
+        
+        if img is None:
+            return Canvas()
+        
+        cvs = Module.image_canvas(img)
+        
+        return cvs
+    
+    @staticmethod
+    def _resize_image(img, new_width=32, new_height=32):
         img = img.resize((new_width, new_height), Image.ANTIALIAS)
         
         return img
@@ -162,3 +174,16 @@ class Module():
                 break
             
         return anim
+    
+    @staticmethod
+    def _download_image(url):
+        try:
+            f = open('./temp.jpg', 'w')
+            f.write(urllib.urlopen(url).read())
+            f.close()
+            img = Image.open('./temp.jpg').convert('RGB')
+        except IOError:
+            print('ERROR: temp.jpg NOT FOUND')
+            return
+        
+        return img
