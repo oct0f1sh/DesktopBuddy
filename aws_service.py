@@ -17,6 +17,16 @@ topic = 'rpi/desktopbuddy'
 
 matrix = EzMatrix()
 
+class ClockAttributes(object):
+    def __init__(self, json):
+        self.unit = json['unit']
+        self.zip_code = json['zip_code']
+        self.region = json['region']
+        
+        temp_color_json = json['temp_color']
+        self.temp_color = Color(temp_color_json['r'], temp_color_json['g'], temp_color_json['b'])
+
+
 class AnimationThread(threading.Thread):
     def __init__(self, anim=None):
         super(AnimationThread, self).__init__()
@@ -77,7 +87,9 @@ class CallbackContainer(object):
             self.thread.join()
 
         if 'clock' in msg:
-            self.thread = ClockThread(3, 'f', '94103', 'US/Pacific')
+            clock_attrs = ClockAttributes(args)
+            
+            self.thread = ClockThread(3, clock_attrs.unit, clock_attrs.zip_code, clock_attrs.region, clock_attrs.temp_color)
             self.thread.should_stop = False
             self.thread.start()
         if 'image' in msg:
@@ -110,7 +122,6 @@ if __name__ == "__main__":
     client.connect()
 
     client.subscribe(topic, 1, myCallbackContainer.interpritMessage)
-    time.sleep(2)
     print('STARTED SERVICE')
 
     while True:
