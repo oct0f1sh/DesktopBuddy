@@ -25,7 +25,18 @@ class ClockAttributes(object):
         
         temp_color_json = json['temp_color']
         self.temp_color = Color(temp_color_json['r'], temp_color_json['g'], temp_color_json['b'])
-
+        
+        day_color_json = json['day_color']
+        self.day_color = Color(day_color_json['r'], day_color_json['g'], day_color_json['b'])
+        
+        date_color_json = json['date_color']
+        self.date_color = Color(date_color_json['r'], date_color_json['g'], date_color_json['b'])
+        
+        hour_color_json = json['hour_color']
+        self.hour_color = Color(hour_color_json['r'], hour_color_json['g'], hour_color_json['b'])
+    
+        minute_color_json = json['minute_color']
+        self.minute_color = Color(minute_color_json['r'], minute_color_json['g'], minute_color_json['b'])
 
 class AnimationThread(threading.Thread):
     def __init__(self, anim=None):
@@ -38,7 +49,7 @@ class AnimationThread(threading.Thread):
             matrix.run_anim(self.anim)
             
 class ClockThread(threading.Thread):
-    def __init__(self, ref_rate, unit, zip_code, region, temp_color=Color.green()):
+    def __init__(self, ref_rate, unit, zip_code, region, temp_color, day_color, date_color, hour_color, minute_color):
         super(ClockThread, self).__init__()
         self.should_stop = False
         self.ref_rate = ref_rate * 60 # convert ref_rate from minutes to seconds
@@ -46,6 +57,10 @@ class ClockThread(threading.Thread):
         self.zip_code = zip_code
         self.region = region
         self.temp_color = temp_color
+        self.day_color = day_color
+        self.date_color = date_color
+        self.hour_color = hour_color
+        self.minute_color = minute_color
         
     def run(self):
         temp_cvs = Module.temperature_canvas(self.unit, self.zip_code, self.temp_color)
@@ -57,7 +72,14 @@ class ClockThread(threading.Thread):
                 temp_cvs = Module.temperature_canvas(self.unit, self.zip_code, self.temp_color)
                 tme = int(time.time())
                 
-            time_cvs = Canvas(25, 19).add_subcanvas(Module.time_canvas(self.region), Point(0, 6))
+            time_cvs = Canvas(25, 19).add_subcanvas(
+                Module.time_canvas(
+                    self.region,
+                    self.day_color,
+                    self.date_color,
+                    self.hour_color,
+                    Color.red(),
+                    self.minute_color), Point(0, 6))
             
             time_cvs.add_subcanvas(temp_cvs, Point(9, 0))
             
@@ -89,7 +111,17 @@ class CallbackContainer(object):
         if 'clock' in msg:
             clock_attrs = ClockAttributes(args)
             
-            self.thread = ClockThread(3, clock_attrs.unit, clock_attrs.zip_code, clock_attrs.region, clock_attrs.temp_color)
+            self.thread = ClockThread(
+                3,
+                clock_attrs.unit,
+                clock_attrs.zip_code,
+                clock_attrs.region,
+                clock_attrs.temp_color,
+                clock_attrs.day_color,
+                clock_attrs.date_color,
+                clock_attrs.hour_color,
+                clock_attrs.minute_color)
+            
             self.thread.should_stop = False
             self.thread.start()
         if 'image' in msg:

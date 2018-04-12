@@ -41,7 +41,7 @@ class Module():
         return cvs
     
     @staticmethod
-    def time_canvas(timezone, mon_color=Color.white(), day_color=Color.gray(), yr_color=Color.white(), hr_color=Color.red(), col_color=Color.red(), min_color=Color.red()):
+    def time_canvas(timezone, day_color=Color.blue(), date_color=Color.gray(), hr_color=Color.red(), col_color=Color.red(), min_color=Color.red()):
         time = datetime.now(pytz.timezone(timezone))
         time_hr = time.strftime('%H')
         time_mn = time.strftime('%M')
@@ -57,17 +57,11 @@ class Module():
                 time_hr = str(int(time_hr) - 12)
             else:
                 time_hr = '0' + str(int(time_hr) - 12)
-            
-##        month_pos1 = NumCanvas.small_num(int(date_mon[0]), mon_color)
-##        month_pos2 = NumCanvas.small_num(int(date_mon[1]), mon_color)
-##        
+        
         day_pos1 = NumCanvas.small_num(int(date_day[0]), day_color)
         day_pos2 = NumCanvas.small_num(int(date_day[1]), day_color)
-##        
-##        year_pos1 = NumCanvas.small_num(int(date_year[0]), yr_color)
-##        year_pos2 = NumCanvas.small_num(int(date_year[1]), yr_color)
             
-        day_cvs = NumCanvas.day_of_week(datetime.today().weekday(), Color.white())
+        day_cvs = NumCanvas.day_of_week(datetime.today().weekday(), date_color)
     
         hr_pos1 = NumCanvas.big_num(int(time_hr[0]), hr_color)
         hr_pos2 = NumCanvas.big_num(int(time_hr[1]), hr_color)
@@ -81,9 +75,6 @@ class Module():
         mn_pos2 = NumCanvas.big_num(int(time_mn[1]), min_color)
         
         date_cvs = Canvas(25, 5)
-        #date_cvs.add_subcanvas(month_pos1).add_subcanvas(month_pos2, Point(4, 0))
-        #date_cvs.add_subcanvas(day_pos1, Point(9, 0)).add_subcanvas(day_pos2, Point(13, 0))
-        #date_cvs.add_subcanvas(year_pos1, Point(18, 0)).add_subcanvas(year_pos2, Point(22, 0))
         date_cvs.add_subcanvas(day_cvs)
         date_cvs.add_subcanvas(day_pos1, Point(18, 0)).add_subcanvas(day_pos2, Point(22, 0))
     
@@ -129,7 +120,7 @@ class Module():
         try:
             img = Image.open(image_path)
         except IOError:
-            print('ERROR: FILE NOT FOUND AT {}'.format(image_path))
+            print('ERROR: FILE NOT FOUND')
             return Canvas()
         
         cvs = Module.image_canvas(img)
@@ -149,7 +140,7 @@ class Module():
         try:
             frame = Image.open(gif_path)
         except IOError:
-            print('ERROR: FILE NOT FOUND AT {}'.format(gif_path))
+            print('ERROR: FILE NOT FOUND')
             return []
         
         frames = 0
@@ -162,7 +153,7 @@ class Module():
             
             frames += 1
             
-            print('COMPILED FRAME {}'.format(frames))
+            print('frame {} compiled'.format(frames))
             
             try:
                 frame.seek(frames)
