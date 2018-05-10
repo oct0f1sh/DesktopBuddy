@@ -25,3 +25,16 @@ animation.pyc
 ezmatrix.pyc
 modules.pyc
 pixnum.pyc
+rpi-rgb-led-matrix/COPYING
+rpi-rgb-led-matrix/Makefile
+rpi-rgb-led-matrix/README.md
+rpi-rgb-led-matrix/adapter
+rpi-rgb-led-matrix/bindings
+rpi-rgb-led-matrix/examples-api-use
+rpi-rgb-led-matrix/fonts
+rpi-rgb-led-matrix/img
+rpi-rgb-led-matrix/include
+rpi-rgb-led-matrix/led-matrix
+rpi-rgb-led-matrix/lib
+rpi-rgb-led-matrix/utils
+rpi-rgb-led-matrix/wiring.md
