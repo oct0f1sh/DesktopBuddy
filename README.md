@@ -23,5 +23,6 @@ Things you will need to get started:
 ## Running the Service
 Navigate to the directory that you cloned the project and run the `aws_service.py` file.
 
-## Author
-oct0f1sh, duncan@duncanmacdonald.us
+## Authors
+* oct0f1sh, duncan@duncanmacdonald.us - This library
+* hzeller, h.zeller@acm.org - [rpi-rgb-led-matrix](https://github.com/hzeller/rpi-rgb-led-matrix) library
