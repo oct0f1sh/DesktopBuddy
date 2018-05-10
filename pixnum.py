@@ -1,4 +1,4 @@
-from ezmatrix import *
+from ezmatrix import Canvas, Color
 
 class NumCanvas():
     """Contains canvas layouts for numbers 1 - 10 in small and large forms"""
