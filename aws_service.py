@@ -1,9 +1,6 @@
-from ezmatrix import *
-from animation import *
-from modules import *
-
+from ezmatrix import EzMatrix, Color, Point
+from modules import Module
 from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTClient
-
 import time
 import json
 import threading

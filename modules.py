@@ -1,6 +1,6 @@
 from weather import Weather, Unit
-from ezmatrix import *
-from pixnum import *
+from ezmatrix import EzMatrix, Canvas, Color, Point
+from pixnum import NumCanvas
 import time
 from datetime import datetime
 import pytz
