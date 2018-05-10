@@ -6,6 +6,7 @@ from datetime import datetime
 import pytz
 from PIL import Image
 from operator import itemgetter
+import urllib
 
 class Module():
     @staticmethod
@@ -41,7 +42,7 @@ class Module():
         return cvs
     
     @staticmethod
-    def time_canvas(timezone, mon_color=Color.white(), day_color=Color.gray(), yr_color=Color.white(), hr_color=Color.red(), col_color=Color.red(), min_color=Color.red()):
+    def time_canvas(timezone, day_color=Color.blue(), date_color=Color.gray(), hr_color=Color.red(), col_color=Color.red(), min_color=Color.red()):
         time = datetime.now(pytz.timezone(timezone))
         time_hr = time.strftime('%H')
         time_mn = time.strftime('%M')
@@ -57,17 +58,11 @@ class Module():
                 time_hr = str(int(time_hr) - 12)
             else:
                 time_hr = '0' + str(int(time_hr) - 12)
-            
-##        month_pos1 = NumCanvas.small_num(int(date_mon[0]), mon_color)
-##        month_pos2 = NumCanvas.small_num(int(date_mon[1]), mon_color)
-##        
+        
         day_pos1 = NumCanvas.small_num(int(date_day[0]), day_color)
         day_pos2 = NumCanvas.small_num(int(date_day[1]), day_color)
-##        
-##        year_pos1 = NumCanvas.small_num(int(date_year[0]), yr_color)
-##        year_pos2 = NumCanvas.small_num(int(date_year[1]), yr_color)
             
-        day_cvs = NumCanvas.day_of_week(datetime.today().weekday(), Color.white())
+        day_cvs = NumCanvas.day_of_week(datetime.today().weekday(), date_color)
     
         hr_pos1 = NumCanvas.big_num(int(time_hr[0]), hr_color)
         hr_pos2 = NumCanvas.big_num(int(time_hr[1]), hr_color)
@@ -81,9 +76,6 @@ class Module():
         mn_pos2 = NumCanvas.big_num(int(time_mn[1]), min_color)
         
         date_cvs = Canvas(25, 5)
-        #date_cvs.add_subcanvas(month_pos1).add_subcanvas(month_pos2, Point(4, 0))
-        #date_cvs.add_subcanvas(day_pos1, Point(9, 0)).add_subcanvas(day_pos2, Point(13, 0))
-        #date_cvs.add_subcanvas(year_pos1, Point(18, 0)).add_subcanvas(year_pos2, Point(22, 0))
         date_cvs.add_subcanvas(day_cvs)
         date_cvs.add_subcanvas(day_pos1, Point(18, 0)).add_subcanvas(day_pos2, Point(22, 0))
     
@@ -105,7 +97,7 @@ class Module():
         width, height = img.size
         
         if width > 32 or height > 32:
-            img = Module.resize_image(img)
+            img = Module._resize_image(img)
             width, height = img.size
             
         cvs = Canvas(width, height)
@@ -137,7 +129,18 @@ class Module():
         return cvs
     
     @staticmethod
-    def resize_image(img, new_width=32, new_height=32):
+    def image_canvas_from_url(url):
+        img = Module._download_image(url)
+        
+        if img is None:
+            return Canvas()
+        
+        cvs = Module.image_canvas(img)
+        
+        return cvs
+    
+    @staticmethod
+    def _resize_image(img, new_width=32, new_height=32):
         img = img.resize((new_width, new_height), Image.ANTIALIAS)
         
         return img
@@ -171,3 +174,16 @@ class Module():
                 break
             
         return anim
+    
+    @staticmethod
+    def _download_image(url):
+        try:
+            f = open('./temp.jpg', 'w')
+            f.write(urllib.urlopen(url).read())
+            f.close()
+            img = Image.open('./temp.jpg').convert('RGB')
+        except IOError:
+            print('ERROR: temp.jpg NOT FOUND')
+            return
+        
+        return img

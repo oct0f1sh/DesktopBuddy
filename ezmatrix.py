@@ -146,6 +146,14 @@ class Canvas(list):
         
         return self
     
+    def has_data(self):
+        for row in self:
+            for color in row:
+                if color.r != 0 and color.g != 0 and color.b != 0:
+                    return True
+        
+        return False
+    
 class Animation(list):
     def __init__(self, length=32):
         lst = []
@@ -181,7 +189,7 @@ class Animation(list):
         for cvs in self:
             for row in cvs:
                 for color in row:
-                    if color is not Color(0, 0, 0):
+                    if color.r != 0 and color.g != 0 and color.b != 0:
                         return True
                     
         return False
