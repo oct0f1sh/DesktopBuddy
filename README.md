@@ -1,6 +1,8 @@
 # Desktop Buddy
 Desktop Buddy is an open-source platform for displaying custom modules on a 32x32 LED matrix running on a Raspberry Pi.
 
+![DesktopBuddy](https://media.giphy.com/media/YByM148NfvTamH6tA7/giphy.gif)
+
 > __This is not a finished project. Please reach out to me if you have any questions about setup.__
 
 ## Getting Started
