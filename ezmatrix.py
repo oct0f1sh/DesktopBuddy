@@ -4,6 +4,7 @@ import math
 import random
 
 class EzMatrix(object):
+    """Responsible for handling communication with matrix"""
     def __init__(self, rows=32, cols=32, chain_length=1):
         options = RGBMatrixOptions()
         options.rows = rows
@@ -21,8 +22,6 @@ class EzMatrix(object):
                 self.matrix.SetPixel(x, y, pixel.r, pixel.g, pixel.b)
                 
     def run_anim(self, anim):
-        #sleep = float(sleep) / float(self.matrix.height)
-        
         sleep = 0.07
         
         for canvas in anim:
@@ -32,6 +31,7 @@ class EzMatrix(object):
         
         
 class Geometry():
+    """Handles linear interpolation for drawing lines and rectangles"""
     @staticmethod
     def distance(start, end):
         dx = end.x - start.x
@@ -106,6 +106,7 @@ class Color():
         return cls(0, 0, 0)
 
 class Canvas(list):
+    """Holds Color values in a list used for displaying colors on a matrix"""
     def __init__(self, width=32, height=32):
         lst = []
         for row in range(height):
@@ -155,6 +156,7 @@ class Canvas(list):
         return False
     
 class Animation(list):
+    """Instead of using this you should just save animations as a list of Canvases"""
     def __init__(self, length=32):
         lst = []
         

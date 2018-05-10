@@ -8,10 +8,12 @@ import time
 import json
 import threading
 
+# CHANGE THESE VALUES TO YOUR FILE PATHS #
 endpoint = 'avhmfui1t673z.iot.us-west-2.amazonaws.com'
 root_ca_path = '/home/pi/Desktop/aws/root-CA.crt'
 certificate_path = '/home/pi/Desktop/aws/RaspPi.cert.pem'
 private_key_path = '/home/pi/Desktop/aws/RaspPi.private.key'
+##########################################
 
 topic = 'rpi/desktopbuddy'
 response = 'rpi/desktopbuddy/logs'
@@ -19,6 +21,7 @@ response = 'rpi/desktopbuddy/logs'
 matrix = EzMatrix()
 
 class ClockAttributes(object):
+    """Keep track of and store clock attributes"""
     def __init__(self, json):
         self.unit = json['unit']
         self.zip_code = json['zip_code']
@@ -55,6 +58,7 @@ class ClockAttributes(object):
             self.minute_color = Color.blue()
             
 class AnimationThread(threading.Thread):
+    """Background thread responsible for starting and stopping animations"""
     def __init__(self, anim=None):
         super(AnimationThread, self).__init__()
         self.should_stop = False
@@ -65,6 +69,7 @@ class AnimationThread(threading.Thread):
             matrix.run_anim(self.anim)
             
 class CanvasThread(threading.Thread):
+    """Background thread responsible for drawing canvas on matrix"""
     def __init__(self, canvas):
         super(CanvasThread, self).__init__()
         self.should_stop = False
@@ -75,6 +80,7 @@ class CanvasThread(threading.Thread):
             matrix.draw_canvas(self.canvas)
             
 class ClockThread(threading.Thread):
+    """Background thread responsible for initializing and displaying clock module"""
     def __init__(self, ref_rate, unit, zip_code, region, temp_color, day_color, date_color, hour_color, minute_color):
         super(ClockThread, self).__init__()
         self.should_stop = False
@@ -112,11 +118,13 @@ class ClockThread(threading.Thread):
             matrix.draw_canvas(Canvas().add_subcanvas(time_cvs, Point(3, 6)))
 
 class CallbackContainer(object):
+    """Class responsible for handling MQTT messages for AWSIoTMQTTClient"""
     def __init__(self, client):
         self._client = client
         self.thread = AnimationThread()
         
     def interpritMessage(self, client, userdata, message):
+        """Interprets MQTT message and handles creating/joining of threads"""
         try:
             msg = json.loads(message.payload)['message']
         except ValueError:
@@ -180,6 +188,7 @@ class CallbackContainer(object):
             self.thread.start()
             
     def send_message(self, is_success, message):
+        """Sends message to MQTT topic"""
         message = json.dumps({'did_succeed': is_success,
                               'message': message})
         print('Sending message to {}:\n'.format(response) + str(message))

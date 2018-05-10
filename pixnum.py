@@ -1,8 +1,10 @@
 from ezmatrix import *
 
 class NumCanvas():
+    """Contains canvas layouts for numbers 1 - 10 in small and large forms"""
     @staticmethod
     def small_num(number, color):
+        """Returns 3x5 canvas representation of number passed in"""
         o = Color.off()
         c = color
         
@@ -76,6 +78,7 @@ class NumCanvas():
 
     @staticmethod
     def big_num(number, color):
+        """Returns 5x7 canvas representation of number passed in"""
         o = Color.off()
         c = color
         
@@ -171,6 +174,7 @@ class NumCanvas():
     
     @staticmethod
     def day_of_week(day, color):
+        """Returns canvas representation of day of week"""
         o = Color.off()
         c = color
         

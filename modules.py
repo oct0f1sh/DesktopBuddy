@@ -9,6 +9,7 @@ from operator import itemgetter
 import urllib
 
 class Module():
+    """A collection of modules used to display custom content on matrix"""
     @staticmethod
     def get_temperature(unit, location):
         if unit == 'c':
@@ -26,6 +27,7 @@ class Module():
     
     @staticmethod
     def temperature_canvas(unit, location, color):
+        """Returns a canvas containing two digit temperature and degree symbol"""
         temp = str(Module.get_temperature(unit, location))
     
         if len(temp) == 3:
@@ -43,15 +45,16 @@ class Module():
     
     @staticmethod
     def time_canvas(timezone, day_color=Color.blue(), date_color=Color.gray(), hr_color=Color.red(), col_color=Color.red(), min_color=Color.red()):
+        """Returns a canvas containing information about current day including: day of week, date, and time in 12h format"""
         time = datetime.now(pytz.timezone(timezone))
         time_hr = time.strftime('%H')
         time_mn = time.strftime('%M')
         
         time_sec = int(time.strftime('%S'))
         
-        date_mon = time.strftime('%m')
+        # date_mon = time.strftime('%m')
         date_day = time.strftime('%d')
-        date_year = time.strftime('%y')
+        # date_year = time.strftime('%y')
         
         if int(time_hr) > 12:
             if int(time_hr) - 12 >= 10:
@@ -92,6 +95,7 @@ class Module():
     
     @staticmethod
     def image_canvas(img):
+        """Returns a canvas that represents image passed in"""
         remove_background = False
         
         width, height = img.size
@@ -118,6 +122,7 @@ class Module():
     
     @staticmethod
     def image_canvas_from_path(image_path):
+        """Returns canvas of image from image_path"""
         try:
             img = Image.open(image_path)
         except IOError:
@@ -130,6 +135,7 @@ class Module():
     
     @staticmethod
     def image_canvas_from_url(url):
+        """Downloads image from url as temp.jpg and returns canvas representation"""
         img = Module._download_image(url)
         
         if img is None:
@@ -141,12 +147,14 @@ class Module():
     
     @staticmethod
     def _resize_image(img, new_width=32, new_height=32):
+        """Helper function used to resize images to 32x32 size"""
         img = img.resize((new_width, new_height), Image.ANTIALIAS)
         
         return img
     
     @staticmethod
     def gif_anim(gif_path):
+        """Takes a path of locally saved gif and returns list of canvases that represent that gif"""
         print('COMPILING GIF...')
         
         try:
@@ -177,6 +185,7 @@ class Module():
     
     @staticmethod
     def _download_image(url):
+        """Helper function used to download image from URL and return as image type"""
         try:
             f = open('./temp.jpg', 'w')
             f.write(urllib.urlopen(url).read())
