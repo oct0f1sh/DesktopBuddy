@@ -16,7 +16,7 @@ Things you will need to get started:
 * Follow [these steps](https://learn.adafruit.com/adafruit-rgb-matrix-plus-real-time-clock-hat-for-raspberry-pi) to get your matrix up and running if you're using the Adafruit Matrix HAT listed above.
 * Clone this repository to your Raspberry Pi
     * `git clone https://github.com/oct0f1sh/DesktopBuddy`
-* Set up a new AWS IoT Thing, download the certificates, and add edit the paths of the `endpoint`, `root_ca_path`, `certificate_path`, and `private_key_path`
+* Set up a new AWS IoT Thing, download the certificates, and edit the paths of the `endpoint`, `root_ca_path`, `certificate_path`, and `private_key_path` strings in `aws_service.py` to your new values.
 
 ## Running the Service
 Navigate to the directory that you cloned the project and run the `aws_service.py` file.
